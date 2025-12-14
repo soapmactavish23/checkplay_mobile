@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/constants.dart';
-
 class CardCustomGrid extends StatelessWidget {
   final void Function()? onTap;
   final String url;
