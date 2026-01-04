@@ -19,7 +19,6 @@ class Category {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'image': image,
     };
   }
 
