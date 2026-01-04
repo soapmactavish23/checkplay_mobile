@@ -2,7 +2,7 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Category {
-  int? id;
+  String? id;
   String name;
   dynamic image;
   Category({
@@ -25,7 +25,7 @@ class Category {
 
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
-      id: map['id'] != null ? map['id'] as int : null,
+      id: map['id'] != null ? map['id'] as String : null,
       name: map['name'] as String,
       image: map['image'] as dynamic,
     );

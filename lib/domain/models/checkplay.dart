@@ -5,7 +5,7 @@ import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
 import 'package:checkplay_mobile/domain/models/category.dart';
 
 class Checkplay {
-  int? id;
+  String? id;
   Category category;
   String name;
   String description;
@@ -56,7 +56,7 @@ class Checkplay {
 
   factory Checkplay.fromMap(Map<String, dynamic> map) {
     return Checkplay(
-      id: map['id'] != null ? map['id'] as int : null,
+      id: map['id'] != null ? map['id'] as String : null,
       category: Category.fromMap(map['category'] as Map<String, dynamic>),
       name: map['name'] as String,
       description: map['description'] as String,
