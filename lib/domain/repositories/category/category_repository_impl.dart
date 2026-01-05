@@ -5,7 +5,7 @@ import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:checkplay_mobile/core/rest_client/rest_client.dart';
 import 'package:checkplay_mobile/domain/models/category.dart';
-import 'package:checkplay_mobile/domain/repositories/category_repository.dart';
+import 'package:checkplay_mobile/domain/repositories/category/category_repository.dart';
 
 class CategoryRepositoryImpl extends RestClient with CategoryRepository {
   @override
@@ -14,7 +14,7 @@ class CategoryRepositoryImpl extends RestClient with CategoryRepository {
       await auth.post('/categorias', data: request.toMap());
       return Success(nil);
     } on Exception catch (e, s) {
-      const msg = "Error creating category";
+      const msg = "Erro ao criar categoria";
       log(msg, error: e, stackTrace: s);
       return Failure(RepositoryException(message: msg));
     }
@@ -27,7 +27,7 @@ class CategoryRepositoryImpl extends RestClient with CategoryRepository {
       final list = List<Map<String, dynamic>>.from(response.data).toList();
       return Success(list.map<Category>((e) => Category.fromMap(e)).toList());
     } catch (e, s) {
-      const msg = "Error finding categories";
+      const msg = "Erro ao listar categorias";
       log(msg, error: e, stackTrace: s);
       return Failure(RepositoryException(message: msg));
     }
@@ -39,7 +39,7 @@ class CategoryRepositoryImpl extends RestClient with CategoryRepository {
       await auth.put('/categorias', data: request.toMap());
       return Success(nil);
     } on Exception catch (e, s) {
-      const msg = "Error updating category";
+      const msg = "Erro ao atualizar categoria";
       log(msg, error: e, stackTrace: s);
       return Failure(RepositoryException(message: msg));
     }
@@ -51,7 +51,7 @@ class CategoryRepositoryImpl extends RestClient with CategoryRepository {
       await auth.delete('/categorias/$id');
       return Success(nil);
     } on Exception catch (e, s) {
-      const msg = "Error removing category";
+      const msg = "Erro ao remover categoria";
       log(msg, error: e, stackTrace: s);
       return Failure(RepositoryException(message: msg));
     }

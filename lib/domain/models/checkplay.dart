@@ -43,14 +43,9 @@ class Checkplay {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'category': category.toMap(),
+      'categoryId': category.id,
       'name': name,
       'description': description,
-      'status': status,
-      'image': image,
-      'dtCreated': dtCreated,
-      'dtInit': dtInit,
-      'dtFinish': dtFinish,
     };
   }
 
