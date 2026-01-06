@@ -1,16 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:checkplay_mobile/core/components/forms/dropdown_custom.dart';
 import 'package:checkplay_mobile/core/components/forms/dropdown_search.dart';
 import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
 import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
+import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/providers/category/category_provider_impl.dart';
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FilterIconButton extends StatefulWidget {
-  const FilterIconButton({super.key});
+  final Function(CheckplayFilter filter) onSelected;
+
+  const FilterIconButton({
+    super.key,
+    required this.onSelected,
+  });
 
   @override
   State<FilterIconButton> createState() => _FilterIconButtonState();
@@ -20,6 +28,9 @@ class _FilterIconButtonState extends State<FilterIconButton> {
   String size = '10';
   String status = CheckplayStatus.ALL;
   Category category = Category.empty();
+
+  CheckplayFilter filter = CheckplayFilter();
+
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -36,7 +47,7 @@ class _FilterIconButtonState extends State<FilterIconButton> {
                     value: status,
                     onChanged: (value) {
                       setState(() {
-                        status = value ?? '10';
+                        filter.status = value ?? '10';
                       });
                     },
                     items: [
@@ -95,26 +106,20 @@ class _FilterIconButtonState extends State<FilterIconButton> {
                       return DropdownSearch<Category>(
                         items: categories,
                         itemAsString: ((item) => item.name),
+                        clearButtonProps: const ClearButtonProps(
+                          icon: Icon(Icons.clear),
+                        ),
+                        selectedItem: category,
+                        onChanged: (value) {
+                          if (value != null) {
+                            filter.categoryId = value.id ?? '';
+                          }
+                        },
                         dropdownDecoratorProps: getStyle(
                           label: "Categoria",
                           hintText: "Selecione a categoria",
                         ),
                       );
-                      // return DropdownCustom(
-                      //   label: 'Categoria',
-                      //   value: categoryId ?? '',
-                      //   onChanged: (value) {
-                      //     setState(() {
-                      //       categoryId = value;
-                      //     });
-                      //   },
-                      //   items: categories.map<DropdownMenuItem<String>>((e) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: e.id,
-                      //       child: Text(e.name),
-                      //     );
-                      //   }).toList(),
-                      // );
                     },
                   ),
                   const SizedBox(
@@ -125,7 +130,7 @@ class _FilterIconButtonState extends State<FilterIconButton> {
                     value: size,
                     onChanged: (value) {
                       setState(() {
-                        size = value ?? '10';
+                        filter.size = int.parse(value ?? '10');
                       });
                     },
                     items: const [
@@ -147,7 +152,9 @@ class _FilterIconButtonState extends State<FilterIconButton> {
               ),
             ),
             textConfirm: 'Pesquisar',
-            onPressed: () {},
+            onPressed: () {
+              widget.onSelected(filter);
+            },
           );
         },
         icon: const Icon(Icons.filter_list));

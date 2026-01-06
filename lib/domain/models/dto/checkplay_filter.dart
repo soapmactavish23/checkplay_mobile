@@ -16,6 +16,12 @@ class CheckplayFilter {
     this.sort = "",
   });
 
+  setFilter(CheckplayFilter filter) {
+    categoryId = filter.categoryId;
+    status = filter.status;
+    size = filter.size;
+  }
+
   @override
   String toString() {
     return 'CheckplayFilter(query: $query, categoryId: $categoryId, status: $status, page: $page, size: $size, sort: $sort)';

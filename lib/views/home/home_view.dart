@@ -21,6 +21,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  CheckplayFilter filter = CheckplayFilter();
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
 
   loadData() {
     final provider = context.read<CheckplayProviderImpl>();
-    provider.search(CheckplayFilter());
+    provider.search(filter);
   }
 
   @override
@@ -45,10 +47,16 @@ class _HomeViewState extends State<HomeView> {
           IconSearch.search(
             context: context,
             onSearch: (value) {
-              provider.search(CheckplayFilter(query: value));
+              filter.query = value;
+              provider.search(filter);
             },
           ),
-          const FilterIconButton(),
+          FilterIconButton(
+            onSelected: (filterSelected) {
+              filter.setFilter(filterSelected);
+              provider.search(filter);
+            },
+          ),
           IconButton(
             onPressed: () async {
               DialogCustom.dialogConfirm(
