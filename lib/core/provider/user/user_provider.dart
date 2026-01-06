@@ -5,4 +5,5 @@ mixin UserProvider {
   Future<void> delete();
   Future<void> findById(String code);
   Future<void> register();
+  Future<void> editProfile();
 }

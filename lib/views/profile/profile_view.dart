@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:checkplay_mobile/core/components/forms/buttom_custom.dart';
 import 'package:checkplay_mobile/core/components/forms/input_custom.dart';
+import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
 import 'package:checkplay_mobile/core/provider/user/user_provider_impl.dart';
+import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
 import 'package:checkplay_mobile/views/base/components/drawer_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +27,24 @@ class _ProfileViewState extends State<ProfileView> {
     final provider = context.read<UserProviderImpl>();
     setState(() {
       nameEC.text = provider.userLogged!.name;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameEC.dispose();
+  }
+
+  Future send() async {
+    final provider = context.read<UserProviderImpl>();
+    DialogCustom.dialogLoading(context);
+    provider.editProfile().then((value) {
+      Navigator.pop(context);
+      DialogCustom.dialogSuccess(context: context, msg: MsgsCustom.saved);
+    }).catchError((error) {
+      Navigator.pop(context);
+      DialogCustom.dialogError(context: context, msg: error);
     });
   }
 
@@ -68,7 +90,11 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   ButtomCustom(
                     label: 'Salvar',
-                    onPressed: () {},
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        send();
+                      }
+                    },
                   )
                 ],
               ),

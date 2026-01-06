@@ -1,3 +1,4 @@
+import 'package:checkplay_mobile/core/auth/models/dto/profile_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -156,10 +157,26 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
     loading = true;
     Either<ServiceException, Nil> result = await service.register(obj);
     loading = false;
-    
+
     switch (result) {
       case Success():
         await search();
+        Future.value();
+      case Failure(:final exception):
+        return Future.error(exception.message);
+    }
+  }
+
+  @override
+  Future<void> editProfile() async {
+    loading = true;
+    final result =
+        await service.editProfile(ProfileDto(id: obj.id!, name: obj.name));
+    loading = false;
+
+    switch (result) {
+      case Success():
+        await loadCurrentUser();
         Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);

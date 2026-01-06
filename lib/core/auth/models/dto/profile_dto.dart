@@ -5,18 +5,15 @@ import 'dart:convert';
 class ProfileDto {
   String id;
   String name;
-  String contact;
   ProfileDto({
     required this.id,
     required this.name,
-    required this.contact,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'contact': contact,
     };
   }
 
@@ -24,15 +21,14 @@ class ProfileDto {
     return ProfileDto(
       id: map['id'] as String,
       name: map['name'] as String,
-      contact: map['contact'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ProfileDto.fromJson(String source) => ProfileDto.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProfileDto.fromJson(String source) =>
+      ProfileDto.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'ProfileDto(id: $id, name: $name, contact: $contact)';
+  String toString() => 'ProfileDto(id: $id, name: $name)';
 }
-
