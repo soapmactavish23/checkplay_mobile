@@ -6,7 +6,7 @@ import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:checkplay_mobile/core/rest_client/config/http_methods.dart';
 import 'package:checkplay_mobile/core/rest_client/rest_client.dart';
-import 'package:checkplay_mobile/domain/models/category.dart';
+import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/repositories/category/category_repository.dart';
 import 'package:dio/dio.dart';
 

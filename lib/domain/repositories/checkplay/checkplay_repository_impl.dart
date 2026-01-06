@@ -6,7 +6,8 @@ import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:checkplay_mobile/core/rest_client/config/http_methods.dart';
 import 'package:checkplay_mobile/core/rest_client/rest_client.dart';
-import 'package:checkplay_mobile/domain/models/checkplay.dart';
+import 'package:checkplay_mobile/domain/models/entities/checkplay.dart';
+import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 import 'package:checkplay_mobile/domain/repositories/checkplay/checkplay_repository.dart';
 import 'package:dio/dio.dart';
 
@@ -73,20 +74,15 @@ class CheckplayRepositoryImpl extends RestClient with CheckplayRepository {
 
   @override
   Future<Either<RepositoryException, List<Checkplay>>> search(
-      {String query = "",
-      String categoryId = "",
-      String status = "",
-      int page = 0,
-      int size = 10,
-      String sort = ''}) async {
+      CheckplayFilter filter) async {
     try {
       final response = await auth.get('/check-play', queryParameters: {
-        'query': query,
-        'categoryId': categoryId,
-        'status': status,
-        'page': page,
-        'size': size,
-        'sort': sort
+        'query': filter.query,
+        'categoryId': filter.categoryId,
+        'status': filter.status,
+        'page': filter.page,
+        'size': filter.size,
+        'sort': filter.sort
       });
 
       final content = response.data['content'];

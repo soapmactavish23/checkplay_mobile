@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/exception/repository_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
-import 'package:checkplay_mobile/domain/models/category.dart';
+import 'package:checkplay_mobile/domain/models/entities/category.dart';
 
 mixin CategoryRepository {
   Future<Either<RepositoryException, List<Category>>> findAll();

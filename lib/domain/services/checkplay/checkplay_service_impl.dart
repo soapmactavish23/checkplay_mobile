@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
-import 'package:checkplay_mobile/domain/models/checkplay.dart';
+import 'package:checkplay_mobile/domain/models/entities/checkplay.dart';
 import 'package:checkplay_mobile/domain/repositories/checkplay/checkplay_repository_impl.dart';
 import 'package:checkplay_mobile/domain/services/checkplay/checkplay_service.dart';
 
@@ -66,20 +66,8 @@ class CheckplayServiceImpl implements CheckplayService {
   }
 
   @override
-  Future<Either<ServiceException, List<Checkplay>>> search(
-      {String query = "",
-      String categoryId = "",
-      String status = "",
-      int page = 0,
-      int size = 10,
-      String sort = ''}) async {
-    final result = await _repository.search(
-        query: query,
-        categoryId: categoryId,
-        status: status,
-        page: page,
-        size: size,
-        sort: sort);
+  Future<Either<ServiceException, List<Checkplay>>> search(filter) async {
+    final result = await _repository.search(filter);
 
     switch (result) {
       case Success(:final value):

@@ -3,17 +3,12 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
-import 'package:checkplay_mobile/domain/models/checkplay.dart';
+import 'package:checkplay_mobile/domain/models/entities/checkplay.dart';
+import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 
 abstract interface class CheckplayService {
-  Future<Either<ServiceException, List<Checkplay>>> search({
-    String query = "",
-    String categoryId = "",
-    String status = "",
-    int page = 0,
-    int size = 10,
-    String sort = '',
-  });
+  Future<Either<ServiceException, List<Checkplay>>> search(
+      CheckplayFilter filter);
   Future<Either<ServiceException, Nil>> update(Checkplay request);
   Future<Either<ServiceException, Nil>> create(Checkplay request);
   Future<Either<ServiceException, Nil>> upload(String id, File image);

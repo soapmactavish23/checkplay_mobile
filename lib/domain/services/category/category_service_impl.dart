@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
-import 'package:checkplay_mobile/domain/models/category.dart';
+import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/repositories/category/category_repository_impl.dart';
 import 'package:checkplay_mobile/domain/services/category/category_service.dart';
 

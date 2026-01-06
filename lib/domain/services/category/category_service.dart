@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
-import 'package:checkplay_mobile/domain/models/category.dart';
+import 'package:checkplay_mobile/domain/models/entities/category.dart';
 
 abstract interface class CategoryService {
   Future<Either<ServiceException, List<Category>>> findAll();

@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
-import 'package:checkplay_mobile/domain/models/category.dart';
+import 'package:checkplay_mobile/domain/models/entities/category.dart';
 
 class Checkplay {
   String? id;
