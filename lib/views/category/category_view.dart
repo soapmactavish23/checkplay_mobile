@@ -1,4 +1,5 @@
 import 'package:checkplay_mobile/core/components/lists/not_found.dart';
+import 'package:checkplay_mobile/core/components/search/icon_search.dart';
 import 'package:checkplay_mobile/core/components/utils/card_custom_image.dart';
 import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
 import 'package:checkplay_mobile/core/routes/router_name.dart';
@@ -30,6 +31,14 @@ class _CategoryViewState extends State<CategoryView> {
       drawer: const DrawerCustom(),
       appBar: AppBar(
         title: const Text('Categorias'),
+        actions: [
+          IconSearch.search(
+            context: context,
+            onSearch: (value) {
+              provider.search(value);
+            },
+          )
+        ],
       ),
       body: ChangeNotifierProvider.value(
         value: provider,
@@ -38,13 +47,13 @@ class _CategoryViewState extends State<CategoryView> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.list.isEmpty) {
+          } else if (provider.listFiltered.isEmpty) {
             return const NotFound();
           } else {
             return ListView.builder(
-              itemCount: provider.list.length,
+              itemCount: provider.listFiltered.length,
               itemBuilder: (_, index) {
-                Category obj = provider.list[index];
+                Category obj = provider.listFiltered[index];
                 return CardCustomImage(
                   image: obj.image,
                   title: obj.name,
