@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:checkplay_mobile/core/components/lists/not_found.dart';
 import 'package:checkplay_mobile/core/components/search/icon_search.dart';
 import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
@@ -10,6 +9,7 @@ import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 import 'package:checkplay_mobile/domain/providers/checkplay/checkplay_provider_impl.dart';
 import 'package:checkplay_mobile/views/base/components/drawer_custom.dart';
 import 'package:checkplay_mobile/views/home/component/card_main.dart';
+import 'package:checkplay_mobile/views/home/component/filter_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +39,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       drawer: const DrawerCustom(),
       appBar: AppBar(
+        centerTitle: false,
         title: const Text('Checkplay'),
         actions: [
           IconSearch.search(
@@ -47,6 +48,7 @@ class _HomeViewState extends State<HomeView> {
               provider.search(CheckplayFilter(query: value));
             },
           ),
+          const FilterIconButton(),
           IconButton(
             onPressed: () async {
               DialogCustom.dialogConfirm(

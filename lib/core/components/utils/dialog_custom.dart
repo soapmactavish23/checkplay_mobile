@@ -56,7 +56,8 @@ abstract class DialogCustom {
       {required BuildContext context,
       required String title,
       required Widget content,
-      required VoidCallback onPressed}) {
+      required VoidCallback onPressed,
+      String textConfirm = 'Confirmar'}) {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -82,9 +83,9 @@ abstract class DialogCustom {
               ),
               TextButton(
                 onPressed: onPressed,
-                child: const Text(
-                  "Confirmar",
-                  style: TextStyle(color: Colors.green),
+                child: Text(
+                  textConfirm,
+                  style: const TextStyle(color: Colors.green),
                 ),
               )
             ],
