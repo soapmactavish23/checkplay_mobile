@@ -1,7 +1,7 @@
 class MsgsCustom {
   static String saved = "Salvo com sucesso!";
   static String deleted = "Deletado com sucesso!";
-  static String confirmation = "Tem certeza que deseja excluir?";
+  static String confirmationDelete = "Tem certeza que deseja excluir?";
   static String notSaved = "Não foi possível salvar!";
   static String notDeleted = "Não foi possivel deletar!";
   static String loading = "Carregando...";

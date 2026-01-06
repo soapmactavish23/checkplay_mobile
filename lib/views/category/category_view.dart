@@ -1,6 +1,8 @@
 import 'package:checkplay_mobile/core/components/lists/not_found.dart';
 import 'package:checkplay_mobile/core/components/utils/card_custom_image.dart';
+import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
 import 'package:checkplay_mobile/core/routes/router_name.dart';
+import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/providers/category/category_provider_impl.dart';
 import 'package:checkplay_mobile/views/base/components/drawer_custom.dart';
@@ -38,6 +40,18 @@ class CategoryView extends StatelessWidget {
                   onTap: () {
                     provider.obj = obj;
                     Navigator.pushNamed(context, RouterName.categoryForm);
+                  },
+                  onLongPress: () {
+                    DialogCustom.dialogConfirm(
+                      context: context,
+                      msg: MsgsCustom.confirmationDelete,
+                      onPressed: () {
+                        provider.remove(obj.id!);
+                        DialogCustom.dialogSuccess(
+                            context: context, msg: MsgsCustom.deleted);
+                        Navigator.pop(context);
+                      },
+                    );
                   },
                 );
               },

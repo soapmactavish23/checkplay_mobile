@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:checkplay_mobile/core/components/forms/buttom_custom.dart';
 import 'package:checkplay_mobile/core/components/forms/input_custom.dart';
 import 'package:checkplay_mobile/core/components/images/image_container.dart';
@@ -54,23 +56,18 @@ class _CategoryFormViewState extends State<CategoryFormView> {
 
   Future<void> saveImage(XFile? selectedImage) async {
     if (selectedImage != null) {
-      setState(() {
-        image = selectedImage;
+      context
+          .read<CategoryProviderImpl>()
+          .uploadImage(File(selectedImage.path))
+          .then((value) {
+        setState(() {
+          image = selectedImage;
+          DialogCustom.dialogSuccess(
+              context: context, msg: MsgsCustom.uploadSuccess);
+        });
+      }).catchError((error) {
+        DialogCustom.dialogError(context: context, msg: error);
       });
-      DialogCustom.dialogConfirm(
-        context: context,
-        msg: MsgsCustom.confirmationUpload,
-        onPressed: () {
-          context.read<CategoryProviderImpl>().uploadImage(image).then((value) {
-            DialogCustom.dialogSuccess(
-              context: context,
-              msg: MsgsCustom.uploadSuccess,
-            );
-          }).then((error) {
-            DialogCustom.dialogError(context: context, msg: error);
-          });
-        },
-      );
     }
   }
 
