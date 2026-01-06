@@ -44,7 +44,7 @@ class _ProfileViewState extends State<ProfileView> {
       DialogCustom.dialogSuccess(context: context, msg: MsgsCustom.saved);
     }).catchError((error) {
       Navigator.pop(context);
-      DialogCustom.dialogError(context: context, msg: error);
+      DialogCustom.dialogError(context: context, msg: '$error');
     });
   }
 
