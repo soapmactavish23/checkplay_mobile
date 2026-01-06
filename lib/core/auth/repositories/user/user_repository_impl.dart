@@ -147,11 +147,10 @@ class UserRepositoryImpl extends RestClient with UserRepository {
   @override
   Future<Either<RepositoryException, Nil>> register(User obj) async {
     try {
-      await unAuth.post('/usuarios/register', data: {
+      await unAuth.post('/usuarios/registrar', data: {
         'name': obj.name,
         'email': obj.email,
-        'password': obj.password,
-        'confirmPassword': obj.password
+        'password': obj.password
       });
 
       return Success(nil);

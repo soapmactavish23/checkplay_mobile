@@ -83,6 +83,7 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
       case Success(value: final Token token):
         final prefs = await SharedPreferences.getInstance();
         prefs.setString(LocalStorageKey.accessToken, token.accessToken);
+        await loadCurrentUser();
         return Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);
@@ -111,7 +112,6 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
     loading = false;
     switch (result) {
       case Success():
-        await search();
         Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);
@@ -145,7 +145,6 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
 
     switch (result) {
       case Success():
-        await search();
         Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);
@@ -160,7 +159,6 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
 
     switch (result) {
       case Success():
-        await search();
         Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);

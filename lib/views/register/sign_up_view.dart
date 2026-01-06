@@ -39,16 +39,29 @@ class _SignUpViewState extends State<SignUpView> {
   void register() {
     DialogCustom.dialogLoading(context);
     final provider = context.read<UserProviderImpl>();
+    provider.obj = obj;
     provider.register().then((value) {
       Navigator.pop(context);
       DialogCustom.dialogSuccess(context: context, msg: MsgsCustom.saved);
+      signIn();
+    }).catchError((error) {
+      Navigator.pop(context);
+      DialogCustom.dialogError(context: context, msg: error);
+    });
+  }
+
+  Future<void> signIn() async {
+    DialogCustom.dialogLoading(context);
+    final provider = context.read<UserProviderImpl>();
+    provider.signIn(obj.email, obj.password!).then((value) {
+      Navigator.pop(context);
       Navigator.of(context).pushNamedAndRemoveUntil(
         RouterName.baseRoute,
         (route) => false,
       );
-    }).catchError((error) {
+    }).catchError((err) {
       Navigator.pop(context);
-      DialogCustom.dialogError(context: context, msg: error);
+      DialogCustom.dialogError(context: context, msg: err);
     });
   }
 
