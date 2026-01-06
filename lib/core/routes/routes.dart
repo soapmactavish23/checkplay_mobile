@@ -1,3 +1,4 @@
+import 'package:checkplay_mobile/views/category/category_form_view.dart';
 import 'package:checkplay_mobile/views/login/login_view.dart';
 import 'package:checkplay_mobile/views/register/sign_up_view.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const LoginView());
       case RouterName.signUpRoute:
         return MaterialPageRoute(builder: (_) => const SignUpView());
+      case RouterName.categoryForm:
+        return MaterialPageRoute(builder: (_) => const CategoryFormView());
       default:
         return MaterialPageRoute(builder: (_) => const SplashView());
     }

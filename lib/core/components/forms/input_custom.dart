@@ -52,10 +52,12 @@ class InputCustom extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         label: Text("$label"),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.all(16),
-          child: icon,
-        ),
+        prefixIcon: icon != null
+            ? Padding(
+                padding: const EdgeInsets.all(16),
+                child: icon,
+              )
+            : null,
         suffixIcon: suffixIcon,
       ),
     );

@@ -41,7 +41,7 @@ class _SignUpViewState extends State<SignUpView> {
     final provider = context.read<UserProviderImpl>();
     provider.register().then((value) {
       Navigator.pop(context);
-      DialogCustom.dialogSuccess(context: context, msg: MsgsCustom.save);
+      DialogCustom.dialogSuccess(context: context, msg: MsgsCustom.saved);
       Navigator.of(context).pushNamedAndRemoveUntil(
         RouterName.baseRoute,
         (route) => false,

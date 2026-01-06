@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gallery_image_viewer/gallery_image_viewer.dart';
@@ -16,9 +17,64 @@ abstract class ImageCustom {
       }
     } else if (file is File) {
       return FileImage(file);
+    } else if (file is XFile) {
+      return FileImage(File(file.path));
     } else {
       return const AssetImage(ImageConstants.logo);
     }
+  }
+
+  static Widget cover(
+    dynamic file, {
+    double width = 260,
+    double height = 180,
+    double radius = 20,
+  }) {
+    final provider = getImageProvider(file);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radius),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image(
+              image: provider,
+              fit: BoxFit.cover,
+            ),
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+              child: const SizedBox.expand(),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.black.withOpacity(0.25),
+                    Colors.black.withOpacity(0.05),
+                    Colors.black.withOpacity(0.25),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: Image(
+                  image: provider,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   static Widget? getImageWidget(dynamic file) {
@@ -44,7 +100,6 @@ abstract class ImageCustom {
     } else {
       imageProvider = Image.asset("images/not_found.png").image;
     }
-
     return GalleryImageView(
       listImage: [imageProvider],
       width: 200,

@@ -31,6 +31,7 @@ class CardCustomImage extends StatelessWidget {
         child: ListTile(
           leading: FadeInImage(
             placeholder: const AssetImage(ImageConstants.loading),
+            width: 80,
             image: ImageCustom.getImageProvider(image),
             fadeInDuration: const Duration(milliseconds: 200),
             fadeInCurve: Curves.easeIn,

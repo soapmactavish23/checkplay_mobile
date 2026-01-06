@@ -20,7 +20,7 @@ class ImageContainer extends StatelessWidget {
             ? SizedBox(
                 height: 400,
                 width: MediaQuery.of(context).size.width,
-                child: ImageCustom.getImageWidget(image),
+                child: ImageCustom.cover(image),
               )
             : Container(
                 color: Colors.grey,
