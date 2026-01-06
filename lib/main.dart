@@ -1,3 +1,4 @@
+import 'package:checkplay_mobile/core/application_config.dart';
 import 'package:checkplay_mobile/core/provider/application_provider.dart';
 import 'package:checkplay_mobile/core/routes/router_name.dart';
 import 'package:checkplay_mobile/core/routes/routes.dart';
@@ -6,7 +7,9 @@ import 'package:checkplay_mobile/core/ui/main_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ApplicationConfig().configureApp();
   runApp(const MyApp());
 }
 
