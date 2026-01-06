@@ -1,0 +1,80 @@
+import 'package:checkplay_mobile/core/components/images/image_custom.dart';
+import 'package:flutter/material.dart';
+
+class CardMain extends StatelessWidget {
+  final void Function()? onTap;
+  final void Function()? onLongPress;
+  final String title;
+  final String? image;
+  final Color colorStatus;
+  const CardMain({
+    super.key,
+    this.onTap,
+    required this.title,
+    required this.onLongPress,
+    this.image,
+    required this.colorStatus,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ImageCustom.cover(image),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
+                  child: Text(
+                    title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 13,
+                      height: 1.25,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.2,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              right: 10,
+              top: 10,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: colorStatus,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                width: 20,
+                height: 20,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
