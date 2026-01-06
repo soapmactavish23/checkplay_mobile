@@ -31,3 +31,8 @@ abstract class Messages {
   static const requiredField = 'Campo obrigatório';
   static const invalidEmail = 'Email inválido';
 }
+
+abstract class GroupsConstants {
+  static const ADMIN_ID = "8d5feee6-e891-4076-8ed8-3e76a062255d";
+  static const OPERATOR_ID = "1eeb9983-6704-4aaf-a000-9909e6fcf7a4";
+}

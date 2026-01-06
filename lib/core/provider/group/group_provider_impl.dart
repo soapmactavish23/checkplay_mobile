@@ -1,3 +1,4 @@
+import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:checkplay_mobile/core/auth/models/group.dart';
 import 'package:checkplay_mobile/core/auth/models/user.dart';
@@ -47,7 +48,7 @@ class GroupProviderImpl extends ChangeNotifier with GroupProvider {
     obj = Group.empty();
     loading = false;
     switch (result) {
-      case Success(): 
+      case Success():
         await findAll();
         Future.value();
       case Failure(:final exception):
@@ -79,8 +80,10 @@ class GroupProviderImpl extends ChangeNotifier with GroupProvider {
   }
 
   void updateUser(User? user) {
-    if(user != null) {
-      findAll();
+    if (user != null) {
+      if (user.group.id == GroupsConstants.ADMIN_ID) {
+        findAll();
+      }
     }
   }
 }

@@ -36,8 +36,9 @@ class _ProfileViewState extends State<ProfileView> {
     nameEC.dispose();
   }
 
-  Future send() async {
+  Future send(String name) async {
     final provider = context.read<UserProviderImpl>();
+    provider.obj.name = name;
     DialogCustom.dialogLoading(context);
     provider.editProfile().then((value) {
       Navigator.pop(context);
@@ -84,6 +85,9 @@ class _ProfileViewState extends State<ProfileView> {
                     validator: Validatorless.required(
                       'Nome é obrigatório',
                     ),
+                    onSaved: (value) {
+                      send(value!);
+                    },
                   ),
                   const SizedBox(
                     height: 30,
@@ -92,7 +96,7 @@ class _ProfileViewState extends State<ProfileView> {
                     label: 'Salvar',
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        send();
+                        formKey.currentState!.save();
                       }
                     },
                   )

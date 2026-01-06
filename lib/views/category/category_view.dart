@@ -9,8 +9,19 @@ import 'package:checkplay_mobile/views/base/components/drawer_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CategoryView extends StatelessWidget {
+class CategoryView extends StatefulWidget {
   const CategoryView({super.key});
+
+  @override
+  State<CategoryView> createState() => _CategoryViewState();
+}
+
+class _CategoryViewState extends State<CategoryView> {
+  @override
+  void initState() {
+    context.read<CategoryProviderImpl>().findAll();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

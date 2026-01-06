@@ -168,13 +168,15 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
   @override
   Future<void> editProfile() async {
     loading = true;
-    final result = await service
-        .editProfile(ProfileDto(id: userLogged!.id!, name: obj.name));
+    final result = await service.editProfile(ProfileDto(
+      id: userLogged!.id!,
+      name: obj.name,
+    ));
     loading = false;
 
     switch (result) {
       case Success():
-        await loadCurrentUser();
+        userLogged!.name = obj.name;
         Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);
