@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145030948040",
+    "project_id": "checkplay-5afca",
+    "storage_bucket": "checkplay-5afca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145030948040:android:513e87873aa9436b7f31fd",
+        "android_client_info": {
+          "package_name": "com.example.checkplay_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaT58GL4NAkW89CHd7upAe6G8lAaEzAOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
