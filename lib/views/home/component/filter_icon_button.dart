@@ -113,6 +113,7 @@ class _FilterIconButtonState extends State<FilterIconButton> {
                         onChanged: (value) {
                           if (value != null) {
                             filter.categoryId = value.id ?? '';
+                            filter.imageCategory = value.image ?? '';
                           }
                         },
                         dropdownDecoratorProps: getStyle(

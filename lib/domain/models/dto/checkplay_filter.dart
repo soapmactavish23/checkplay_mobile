@@ -7,6 +7,8 @@ class CheckplayFilter {
   int size = 10;
   String sort = '';
 
+  String imageCategory = '';
+
   CheckplayFilter({
     this.query = "",
     this.categoryId = "",

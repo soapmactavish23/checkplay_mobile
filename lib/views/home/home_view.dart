@@ -1,10 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
+import 'package:checkplay_mobile/core/components/images/image_custom.dart';
 import 'package:checkplay_mobile/core/components/lists/not_found.dart';
 import 'package:checkplay_mobile/core/components/search/icon_search.dart';
 import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
+import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:checkplay_mobile/core/provider/user/user_provider_impl.dart';
 import 'package:checkplay_mobile/core/routes/router_name.dart';
 import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
+import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
 import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 import 'package:checkplay_mobile/domain/providers/checkplay/checkplay_provider_impl.dart';
 import 'package:checkplay_mobile/views/base/components/drawer_custom.dart';
@@ -55,6 +58,7 @@ class _HomeViewState extends State<HomeView> {
             onSelected: (filterSelected) {
               filter.setFilter(filterSelected);
               provider.search(filter);
+              Navigator.pop(context);
             },
           ),
           IconButton(
@@ -87,54 +91,104 @@ class _HomeViewState extends State<HomeView> {
           } else if (provider.list.isEmpty) {
             return const NotFound();
           } else {
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1,
-              ),
-              itemCount: provider.list.length,
-              padding: const EdgeInsets.all(8.0),
-              itemBuilder: (context, index) {
-                final obj = provider.list[index];
-                return CardMain(
-                  title: obj.name,
-                  image: obj.image,
-                  colorStatus: obj.getColorByStatus(),
-                  onTap: () {
-                    provider.obj = obj;
-                    // Navigator.of(context).pushNamed(
-                    //   RouterName.accountRoute,
-                    // );
-                  },
-                  onLongPress: () {
-                    DialogCustom.dialogConfirm(
-                      context: context,
-                      msg: MsgsCustom.confirmationDelete,
-                      onPressed: () async {
-                        provider.obj = obj;
-                        try {
-                          await provider.remove(obj.id!);
-                          if (mounted) {
-                            DialogCustom.dialogSuccess(
-                              context: context,
-                              msg: MsgsCustom.deleted,
-                            );
-                            Navigator.of(context).pop();
-                          }
-                        } catch (err) {
-                          if (mounted) {
-                            Navigator.of(context).pop();
-                            DialogCustom.dialogError(
-                              context: context,
-                              msg: '$err',
-                            );
-                          }
-                        }
-                      },
-                    );
-                  },
-                );
-              },
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Filtros:',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                          color: ColorsConstants.defaultColor,
+                        ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: Container(
+                                padding: const EdgeInsets.all(4.0),
+                                color: ColorsConstants.danger,
+                                child: const Text(
+                                  CheckplayStatus.PENDENTE,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
+                                ),
+                              ),
+                            ),
+                            Image.asset(
+                              ImageConstants.logo,
+                              width: 50,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1,
+                    ),
+                    itemCount: provider.list.length,
+                    padding: const EdgeInsets.all(8.0),
+                    itemBuilder: (context, index) {
+                      final obj = provider.list[index];
+                      return CardMain(
+                        title: obj.name,
+                        image: obj.image,
+                        colorStatus: obj.getColorByStatus(),
+                        onTap: () {
+                          provider.obj = obj;
+                          // Navigator.of(context).pushNamed(
+                          //   RouterName.accountRoute,
+                          // );
+                        },
+                        onLongPress: () {
+                          DialogCustom.dialogConfirm(
+                            context: context,
+                            msg: MsgsCustom.confirmationDelete,
+                            onPressed: () async {
+                              provider.obj = obj;
+                              try {
+                                await provider.remove(obj.id!);
+                                if (mounted) {
+                                  DialogCustom.dialogSuccess(
+                                    context: context,
+                                    msg: MsgsCustom.deleted,
+                                  );
+                                  Navigator.of(context).pop();
+                                }
+                              } catch (err) {
+                                if (mounted) {
+                                  Navigator.of(context).pop();
+                                  DialogCustom.dialogError(
+                                    context: context,
+                                    msg: '$err',
+                                  );
+                                }
+                              }
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             );
           }
         },
