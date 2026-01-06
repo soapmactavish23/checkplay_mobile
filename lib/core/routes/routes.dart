@@ -9,7 +9,7 @@ class Routes {
   static Route<dynamic> onGenereteRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouterName.baseRoute:
-        return MaterialPageRoute(builder: (_) => const BaseView());
+        return MaterialPageRoute(builder: (_) => BaseView());
       case RouterName.loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginView());
       case RouterName.signUpRoute:
