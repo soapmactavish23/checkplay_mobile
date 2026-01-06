@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:checkplay_mobile/core/auth/models/user.dart';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
@@ -24,8 +25,12 @@ class CategoryProviderImpl extends ChangeNotifier implements CategoryProvider {
 
   final _service = CategoryServiceImpl();
 
-  CategoryProviderImpl() {
-    findAll();
+  CategoryProviderImpl();
+
+  void updateUser(User? user) {
+    if (user != null) {
+      findAll();
+    }
   }
 
   @override
