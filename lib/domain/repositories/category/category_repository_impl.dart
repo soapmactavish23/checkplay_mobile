@@ -1,11 +1,10 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:checkplay_mobile/core/exception/repository_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:checkplay_mobile/core/rest_client/config/http_methods.dart';
 import 'package:checkplay_mobile/core/rest_client/rest_client.dart';
+import 'package:checkplay_mobile/domain/models/dto/upload_dto.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/repositories/category/category_repository.dart';
 import 'package:dio/dio.dart';
@@ -61,19 +60,11 @@ class CategoryRepositoryImpl extends RestClient with CategoryRepository {
   }
 
   @override
-  Future<Either<RepositoryException, Nil>> uploadImage(
-      String id, File image) async {
+  Future<Either<RepositoryException, Nil>> uploadImage(UploadDto dto) async {
     try {
-      FormData formData = FormData.fromMap({
-        "id": id,
-        "file": await MultipartFile.fromFile(
-          image.path,
-        ),
-      });
-
       await auth.request(
         '/categorias/upload',
-        data: formData,
+        data: await dto.toMap(),
         options: Options(
           method: HttpMethods.put,
           headers: {

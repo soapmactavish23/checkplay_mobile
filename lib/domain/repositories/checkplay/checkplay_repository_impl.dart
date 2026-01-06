@@ -1,11 +1,10 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:checkplay_mobile/core/exception/repository_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:checkplay_mobile/core/rest_client/config/http_methods.dart';
 import 'package:checkplay_mobile/core/rest_client/rest_client.dart';
+import 'package:checkplay_mobile/domain/models/dto/upload_dto.dart';
 import 'package:checkplay_mobile/domain/models/entities/checkplay.dart';
 import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 import 'package:checkplay_mobile/domain/repositories/checkplay/checkplay_repository.dart';
@@ -108,18 +107,11 @@ class CheckplayRepositoryImpl extends RestClient with CheckplayRepository {
   }
 
   @override
-  Future<Either<RepositoryException, Nil>> upload(String id, File image) async {
+  Future<Either<RepositoryException, Nil>> upload(UploadDto dto) async {
     try {
-      FormData formData = FormData.fromMap({
-        "id": id,
-        "file": await MultipartFile.fromFile(
-          image.path,
-        ),
-      });
-
       await auth.request(
         '/check-play/upload',
-        data: formData,
+        data: await dto.toMap(),
         options: Options(
           method: HttpMethods.put,
           headers: {

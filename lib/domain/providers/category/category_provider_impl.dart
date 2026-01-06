@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
+import 'package:checkplay_mobile/domain/models/dto/upload_dto.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/providers/category/category_provider.dart';
 import 'package:checkplay_mobile/domain/services/category/category_service_impl.dart';
@@ -76,7 +77,8 @@ class CategoryProviderImpl extends ChangeNotifier implements CategoryProvider {
   @override
   Future<void> uploadImage(File file) async {
     loading = true;
-    final result = await _service.uploadImage(obj.id!, file);
+    final result =
+        await _service.uploadImage(UploadDto(id: obj.id!, image: file));
     loading = false;
 
     switch (result) {
