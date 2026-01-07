@@ -1,4 +1,5 @@
 import 'package:checkplay_mobile/core/components/images/image_custom.dart';
+import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class CardMain extends StatelessWidget {
@@ -7,6 +8,7 @@ class CardMain extends StatelessWidget {
   final String title;
   final String? image;
   final Color colorStatus;
+  final String? categoryImage;
   const CardMain({
     super.key,
     this.onTap,
@@ -14,6 +16,7 @@ class CardMain extends StatelessWidget {
     required this.onLongPress,
     this.image,
     required this.colorStatus,
+    this.categoryImage = ImageConstants.logo,
   });
 
   @override
@@ -33,7 +36,10 @@ class CardMain extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: ImageCustom.cover(image),
+                  child: ImageCustom.cover(
+                    showGallery: false,
+                    image,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
@@ -52,6 +58,17 @@ class CardMain extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            //TODO: CRIAR O ICONE DA CATEGORIA
+            Positioned(
+              left: 10,
+              top: 10,
+              child: ImageCustom.getImageWidget(
+                showGallery: false,
+                categoryImage,
+                width: 20,
+                height: 20,
+              ),
             ),
             Positioned(
               right: 10,

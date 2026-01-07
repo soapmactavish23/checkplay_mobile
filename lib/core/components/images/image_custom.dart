@@ -29,6 +29,7 @@ abstract class ImageCustom {
     double width = 260,
     double height = 180,
     double radius = 20,
+    bool showGallery = true,
   }) {
     final provider = getImageProvider(file);
 
@@ -65,10 +66,16 @@ abstract class ImageCustom {
               padding: const EdgeInsets.all(16),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(14),
-                child: Image(
-                  image: provider,
-                  fit: BoxFit.contain,
-                ),
+                child: showGallery
+                    ? GalleryImageView(
+                        listImage: [provider],
+                        boxFit: BoxFit.contain,
+                      )
+                    : ImageCustom.getImageWidget(
+                        file,
+                        showGallery: false,
+                        boxFit: BoxFit.contain,
+                      ),
               ),
             ),
           ],

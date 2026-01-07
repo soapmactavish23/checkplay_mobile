@@ -99,6 +99,7 @@ class _HomeViewState extends State<HomeView> {
                         return CardMain(
                           title: obj.name,
                           image: obj.image,
+                          categoryImage: obj.category.image,
                           colorStatus: CheckplayStatus.getColorByStatus(
                             obj.status,
                           ),
