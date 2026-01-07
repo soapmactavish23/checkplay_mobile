@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
+import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:checkplay_mobile/domain/providers/checkplay/checkplay_provider_impl.dart';
 import 'package:checkplay_mobile/views/filter_config/components/category_component.dart';
 import 'package:checkplay_mobile/views/filter_config/components/size_component.dart';
@@ -13,8 +17,6 @@ class FilterConfigView extends StatefulWidget {
 }
 
 class _FilterConfigViewState extends State<FilterConfigView> {
-  // CheckplayFilter filter = CheckplayFilter();
-
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<CheckplayProviderImpl>();
@@ -22,6 +24,21 @@ class _FilterConfigViewState extends State<FilterConfigView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Configurar Filtro'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              provider.search().then(
+                    (value) => {
+                      DialogCustom.dialogSuccess(
+                        context: context,
+                        msg: 'Lista recarregada com sucesso!',
+                      )
+                    },
+                  );
+            },
+            icon: const Icon(Icons.replay),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -52,9 +69,11 @@ class _FilterConfigViewState extends State<FilterConfigView> {
               ),
               CategoryComponent(
                 value: provider.filter.categoryId,
-                onChanged: (value) {
+                onChanged: (value, image) {
                   setState(() {
                     provider.filter.categoryId = value;
+                    provider.filter.imageCategory =
+                        image ?? ImageConstants.logo;
                   });
                 },
               ),

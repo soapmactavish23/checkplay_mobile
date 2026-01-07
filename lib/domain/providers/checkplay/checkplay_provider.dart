@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:checkplay_mobile/core/auth/models/user.dart';
-import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 
 mixin CheckplayProvider {
-  Future<void> search(CheckplayFilter filter);
+  Future<void> search();
   Future<void> save();
   Future<void> initCheck(String id);
   Future<void> resetCheck(String id);

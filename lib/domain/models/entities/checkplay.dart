@@ -1,10 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
-import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
-import 'package:flutter/material.dart';
 
 class Checkplay {
   String? id;
@@ -40,19 +37,6 @@ class Checkplay {
       dtFinish: null,
       dtInit: null,
     );
-  }
-
-  Color getColorByStatus() {
-    switch (status) {
-      case CheckplayStatus.FINISH:
-        return ColorsConstants.success;
-      case CheckplayStatus.PROGRESS:
-        return ColorsConstants.info;
-      case CheckplayStatus.PENDING:
-        return ColorsConstants.danger;
-      default:
-        return ColorsConstants.primary;
-    }
   }
 
   Map<String, dynamic> toMap() {

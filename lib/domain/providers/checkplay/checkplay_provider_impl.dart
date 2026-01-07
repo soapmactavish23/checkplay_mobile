@@ -90,14 +90,14 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
 
     switch (result) {
       case Success():
-        await search(CheckplayFilter());
+        await search();
       case Failure(:final exception):
         return Future.error(exception.message);
     }
   }
 
   @override
-  Future<void> search(CheckplayFilter filter) async {
+  Future<void> search() async {
     loading = true;
     final result = await _service.search(filter);
     loading = false;
@@ -112,7 +112,7 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
   @override
   void updateUser(User? user) {
     if (user != null) {
-      search(CheckplayFilter());
+      search();
     }
   }
 
@@ -123,7 +123,7 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
     loading = false;
     switch (result) {
       case Success():
-        await search(CheckplayFilter());
+        await search();
       case Failure(:final exception):
         return Future.error(exception.message);
     }

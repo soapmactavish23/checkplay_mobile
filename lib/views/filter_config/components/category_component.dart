@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class CategoryComponent extends StatefulWidget {
   final String value;
-  final Function(String) onChanged;
+  final Function(String, String? image) onChanged;
   const CategoryComponent({
     super.key,
     required this.value,
@@ -21,8 +21,12 @@ class _CategoryComponentState extends State<CategoryComponent> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text('Categorias'),
+        const Text(
+          'Categorias:',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         Consumer<CategoryProviderImpl>(
           builder: (_, provider, __) {
             List<Category> categories = [
@@ -46,7 +50,10 @@ class _CategoryComponentState extends State<CategoryComponent> {
                 final isSelected = widget.value == category.id;
 
                 return GestureDetector(
-                  onTap: () => widget.onChanged(category.id ?? ''),
+                  onTap: () => widget.onChanged(
+                    category.id ?? '',
+                    category.image,
+                  ),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     decoration: BoxDecoration(

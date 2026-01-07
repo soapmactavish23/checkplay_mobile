@@ -5,7 +5,7 @@ import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
 import 'package:checkplay_mobile/core/provider/user/user_provider_impl.dart';
 import 'package:checkplay_mobile/core/routes/router_name.dart';
 import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
-import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
+import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
 import 'package:checkplay_mobile/domain/providers/checkplay/checkplay_provider_impl.dart';
 import 'package:checkplay_mobile/views/base/components/drawer_custom.dart';
 import 'package:checkplay_mobile/views/home/component/card_main.dart';
@@ -21,8 +21,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  CheckplayFilter filter = CheckplayFilter();
-
   @override
   void initState() {
     super.initState();
@@ -31,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
 
   loadData() {
     final provider = context.read<CheckplayProviderImpl>();
-    provider.search(filter);
+    provider.search();
   }
 
   @override
@@ -47,8 +45,8 @@ class _HomeViewState extends State<HomeView> {
           IconSearch.search(
             context: context,
             onSearch: (value) {
-              filter.query = value;
-              provider.search(filter);
+              provider.filter.query = value;
+              provider.search();
             },
           ),
           IconButton(
@@ -81,63 +79,68 @@ class _HomeViewState extends State<HomeView> {
           } else if (provider.list.isEmpty) {
             return const NotFound();
           } else {
-            return Column(
-              children: [
-                const FilterHeader(),
-                const Divider(),
-                Expanded(
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1,
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: Column(
+                children: [
+                  const FilterHeader(),
+                  const Divider(),
+                  Expanded(
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1,
+                      ),
+                      itemCount: provider.list.length,
+                      padding: const EdgeInsets.all(8.0),
+                      itemBuilder: (context, index) {
+                        final obj = provider.list[index];
+                        return CardMain(
+                          title: obj.name,
+                          image: obj.image,
+                          colorStatus: CheckplayStatus.getColorByStatus(
+                            obj.status,
+                          ),
+                          onTap: () {
+                            provider.obj = obj;
+                            // Navigator.of(context).pushNamed(
+                            //   RouterName.accountRoute,
+                            // );
+                          },
+                          onLongPress: () {
+                            DialogCustom.dialogConfirm(
+                              context: context,
+                              msg: MsgsCustom.confirmationDelete,
+                              onPressed: () async {
+                                provider.obj = obj;
+                                try {
+                                  await provider.remove(obj.id!);
+                                  if (mounted) {
+                                    DialogCustom.dialogSuccess(
+                                      context: context,
+                                      msg: MsgsCustom.deleted,
+                                    );
+                                    Navigator.of(context).pop();
+                                  }
+                                } catch (err) {
+                                  if (mounted) {
+                                    Navigator.of(context).pop();
+                                    DialogCustom.dialogError(
+                                      context: context,
+                                      msg: '$err',
+                                    );
+                                  }
+                                }
+                              },
+                            );
+                          },
+                        );
+                      },
                     ),
-                    itemCount: provider.list.length,
-                    padding: const EdgeInsets.all(8.0),
-                    itemBuilder: (context, index) {
-                      final obj = provider.list[index];
-                      return CardMain(
-                        title: obj.name,
-                        image: obj.image,
-                        colorStatus: obj.getColorByStatus(),
-                        onTap: () {
-                          provider.obj = obj;
-                          // Navigator.of(context).pushNamed(
-                          //   RouterName.accountRoute,
-                          // );
-                        },
-                        onLongPress: () {
-                          DialogCustom.dialogConfirm(
-                            context: context,
-                            msg: MsgsCustom.confirmationDelete,
-                            onPressed: () async {
-                              provider.obj = obj;
-                              try {
-                                await provider.remove(obj.id!);
-                                if (mounted) {
-                                  DialogCustom.dialogSuccess(
-                                    context: context,
-                                    msg: MsgsCustom.deleted,
-                                  );
-                                  Navigator.of(context).pop();
-                                }
-                              } catch (err) {
-                                if (mounted) {
-                                  Navigator.of(context).pop();
-                                  DialogCustom.dialogError(
-                                    context: context,
-                                    msg: '$err',
-                                  );
-                                }
-                              }
-                            },
-                          );
-                        },
-                      );
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           }
         },
