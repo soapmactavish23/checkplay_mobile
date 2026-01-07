@@ -89,6 +89,8 @@ abstract class ImageCustom {
     if (file is String && file.isNotEmpty) {
       if (file.startsWith("http")) {
         imageProvider = NetworkImage(file);
+      } else if (file.startsWith('images/')) {
+        imageProvider = AssetImage(file);
       } else {
         imageProvider = MemoryImage(base64Decode(file));
       }

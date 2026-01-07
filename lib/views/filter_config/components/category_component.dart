@@ -25,7 +25,10 @@ class _CategoryComponentState extends State<CategoryComponent> {
         const Text('Categorias'),
         Consumer<CategoryProviderImpl>(
           builder: (_, provider, __) {
-            List<Category> categories = provider.list;
+            List<Category> categories = [
+              Category(id: '', name: 'Todos', image: 'images/logo.png'),
+              ...provider.list
+            ];
 
             return GridView.builder(
               shrinkWrap: true,
