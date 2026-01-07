@@ -51,7 +51,7 @@ class CardMain extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 13,
                       height: 1.25,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w800,
                       letterSpacing: 0.2,
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
@@ -59,7 +59,6 @@ class CardMain extends StatelessWidget {
                 ),
               ],
             ),
-            //TODO: CRIAR O ICONE DA CATEGORIA
             Positioned(
               left: 10,
               top: 10,

@@ -69,23 +69,23 @@ class _HomeViewState extends State<HomeView> {
           )
         ],
       ),
-      body: ChangeNotifierProvider.value(
-        value: provider,
-        builder: (context, _) {
-          if (provider.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (provider.list.isEmpty) {
-            return const NotFound();
-          } else {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 24),
-              child: Column(
-                children: [
-                  const FilterHeader(),
-                  const Divider(),
-                  Expanded(
+      body: Column(
+        children: [
+          const FilterHeader(),
+          const Divider(),
+          ChangeNotifierProvider.value(
+            value: provider,
+            builder: (context, _) {
+              if (provider.loading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (provider.list.isEmpty) {
+                return const NotFound();
+              } else {
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 24),
                     child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -140,11 +140,11 @@ class _HomeViewState extends State<HomeView> {
                       },
                     ),
                   ),
-                ],
-              ),
-            );
-          }
-        },
+                );
+              }
+            },
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

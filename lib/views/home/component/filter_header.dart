@@ -40,18 +40,22 @@ class FilterHeader extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      //TODO QUERO DEIXAR ESSE CONTAINER COM AS BORDAS ARREDONDADAS
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: Container(
-                          padding: const EdgeInsets.all(4.0),
-                          color: CheckplayStatus.getColorByStatus(
-                            status,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: CheckplayStatus.getColorByStatus(status),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
                             CheckplayStatus.getTitleByStatus(status),
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
