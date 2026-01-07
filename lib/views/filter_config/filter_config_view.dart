@@ -1,9 +1,9 @@
-import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
-import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
-import 'package:checkplay_mobile/domain/models/entities/category.dart';
+import 'package:checkplay_mobile/domain/providers/checkplay/checkplay_provider_impl.dart';
+import 'package:checkplay_mobile/views/filter_config/components/category_component.dart';
 import 'package:checkplay_mobile/views/filter_config/components/size_component.dart';
 import 'package:checkplay_mobile/views/filter_config/components/status_radio_row.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FilterConfigView extends StatefulWidget {
   const FilterConfigView({super.key});
@@ -13,14 +13,12 @@ class FilterConfigView extends StatefulWidget {
 }
 
 class _FilterConfigViewState extends State<FilterConfigView> {
-  String size = '10';
-  String status = CheckplayStatus.ALL;
-  Category category = Category.empty();
-
-  CheckplayFilter filter = CheckplayFilter();
+  // CheckplayFilter filter = CheckplayFilter();
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<CheckplayProviderImpl>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Configurar Filtro'),
@@ -31,10 +29,10 @@ class _FilterConfigViewState extends State<FilterConfigView> {
           child: Column(
             children: [
               StatusRadioRow(
-                value: status,
+                value: provider.filter.status,
                 onChanged: (value) {
                   setState(() {
-                    status = value;
+                    provider.filter.status = value;
                   });
                 },
               ),
@@ -42,15 +40,23 @@ class _FilterConfigViewState extends State<FilterConfigView> {
                 height: 50,
               ),
               SizeComponent(
-                value: size,
+                value: provider.filter.size.toString(),
                 onChanged: (value) {
                   setState(() {
-                    size = value;
+                    provider.filter.size = int.parse(value);
                   });
                 },
               ),
               const Divider(
                 height: 50,
+              ),
+              CategoryComponent(
+                value: provider.filter.categoryId,
+                onChanged: (value) {
+                  setState(() {
+                    provider.filter.categoryId = value;
+                  });
+                },
               ),
             ],
           ),

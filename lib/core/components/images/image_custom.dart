@@ -77,34 +77,46 @@ abstract class ImageCustom {
     );
   }
 
-  static Widget? getImageWidget(dynamic file) {
-    ImageProvider<Object> imageProvider;
-    if (file is String && file != "") {
-      if (file.contains("https://")) {
-        imageProvider = Image.network(
-          file,
-          fit: BoxFit.cover,
-        ).image;
+  static Widget getImageWidget(
+    dynamic file, {
+    BoxFit boxFit = BoxFit.cover,
+    bool showGallery = true,
+    double width = 200,
+    double height = 200,
+  }) {
+    ImageProvider imageProvider;
+
+    if (file is String && file.isNotEmpty) {
+      if (file.startsWith("http")) {
+        imageProvider = NetworkImage(file);
       } else {
-        imageProvider = Image.memory(
-          base64Decode(file),
-          fit: BoxFit.cover,
-        ).image;
+        imageProvider = MemoryImage(base64Decode(file));
       }
-    } else if (file is File || file is XFile) {
-      file = File(file.path);
-      imageProvider = Image.file(
-        file,
-        fit: BoxFit.cover,
-      ).image;
+    } else if (file is File) {
+      imageProvider = FileImage(file);
+    } else if (file is XFile) {
+      imageProvider = FileImage(File(file.path));
     } else {
-      imageProvider = Image.asset("images/not_found.png").image;
+      imageProvider = const AssetImage("images/not_found.png");
     }
+
+    if (!showGallery) {
+      return Image(
+        image: imageProvider,
+        width: width,
+        height: height,
+        fit: boxFit,
+      );
+    }
+
     return GalleryImageView(
       listImage: [imageProvider],
-      width: 200,
-      height: 200,
-      imageDecoration: BoxDecoration(border: Border.all(color: Colors.white)),
+      width: width,
+      height: height,
+      boxFit: boxFit,
+      imageDecoration: BoxDecoration(
+        border: Border.all(color: Colors.white),
+      ),
     );
   }
 }
