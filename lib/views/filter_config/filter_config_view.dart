@@ -1,6 +1,7 @@
 import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
 import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
+import 'package:checkplay_mobile/views/filter_config/components/size_component.dart';
 import 'package:checkplay_mobile/views/filter_config/components/status_radio_row.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +37,20 @@ class _FilterConfigViewState extends State<FilterConfigView> {
                     status = value;
                   });
                 },
+              ),
+              const Divider(
+                height: 50,
+              ),
+              SizeComponent(
+                value: size,
+                onChanged: (value) {
+                  setState(() {
+                    size = value;
+                  });
+                },
+              ),
+              const Divider(
+                height: 50,
               ),
             ],
           ),

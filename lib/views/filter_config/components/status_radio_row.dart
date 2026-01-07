@@ -14,30 +14,31 @@ class StatusRadioRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
-          'Status: ',
+          'Status:',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
-        const Divider(),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _statusItem(CheckplayStatus.ALL, CheckplayStatus.TODOS,
-                  ColorsConstants.primary),
-              _statusItem(CheckplayStatus.PENDING, CheckplayStatus.PENDENTE,
-                  ColorsConstants.danger),
-              _statusItem(CheckplayStatus.PROGRESS,
-                  CheckplayStatus.EM_ANDAMENTO, ColorsConstants.info),
-              _statusItem(CheckplayStatus.FINISH, CheckplayStatus.FINALIZADO,
-                  ColorsConstants.success),
-            ],
+        const SizedBox(width: 10),
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                _statusItem(CheckplayStatus.ALL, CheckplayStatus.TODOS,
+                    ColorsConstants.primary),
+                _statusItem(CheckplayStatus.PENDING, CheckplayStatus.PENDENTE,
+                    ColorsConstants.danger),
+                _statusItem(CheckplayStatus.PROGRESS,
+                    CheckplayStatus.EM_ANDAMENTO, ColorsConstants.info),
+                _statusItem(CheckplayStatus.FINISH, CheckplayStatus.FINALIZADO,
+                    ColorsConstants.success),
+              ],
+            ),
           ),
         ),
-        const Divider(),
       ],
     );
   }
