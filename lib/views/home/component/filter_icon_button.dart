@@ -97,6 +97,61 @@ class _FilterIconButtonState extends State<FilterIconButton> {
                       ),
                     ],
                   ),
+                  DropdownCustom(
+                    label: 'Status',
+                    value: status,
+                    onChanged: (value) {
+                      setState(() {
+                        filter.status = value ?? '10';
+                      });
+                    },
+                    items: [
+                      DropdownMenuItem(
+                        value: CheckplayStatus.ALL,
+                        child: Container(
+                          padding: const EdgeInsets.all(4.0),
+                          color: ColorsConstants.primary,
+                          child: const Text(
+                            CheckplayStatus.TODOS,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: CheckplayStatus.PENDING,
+                        child: Container(
+                          padding: const EdgeInsets.all(4.0),
+                          color: ColorsConstants.danger,
+                          child: const Text(
+                            CheckplayStatus.PENDENTE,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: CheckplayStatus.PROGRESS,
+                        child: Container(
+                          padding: const EdgeInsets.all(4.0),
+                          color: ColorsConstants.info,
+                          child: const Text(
+                            CheckplayStatus.EM_ANDAMENTO,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: CheckplayStatus.FINISH,
+                        child: Container(
+                          padding: const EdgeInsets.all(4.0),
+                          color: ColorsConstants.success,
+                          child: const Text(
+                            CheckplayStatus.FINALIZADO,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(
                     height: 15,
                   ),

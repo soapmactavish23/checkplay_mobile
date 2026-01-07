@@ -9,4 +9,5 @@ abstract class RouterName {
   static const groupForm = "/group-form";
   static const userForm = "/user-form";
   static const checkplayForm = '/checkplay-form';
+  static const filterConfig = '/filter-config';
 }

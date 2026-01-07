@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
   Checkplay obj = Checkplay.empty();
   List<Checkplay> list = [];
+  CheckplayFilter filter = CheckplayFilter();
 
   bool _loading = false;
 
