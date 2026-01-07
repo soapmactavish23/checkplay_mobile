@@ -37,6 +37,7 @@ class _CategoryFormViewState extends State<CategoryFormView> {
   @override
   void dispose() {
     super.dispose();
+    nameEC.dispose();
   }
 
   void loadData() {
@@ -56,16 +57,19 @@ class _CategoryFormViewState extends State<CategoryFormView> {
 
   Future<void> saveImage(XFile? selectedImage) async {
     if (selectedImage != null) {
+      DialogCustom.dialogLoading(context);
       context
           .read<CategoryProviderImpl>()
           .uploadImage(File(selectedImage.path))
           .then((value) {
         setState(() {
+          Navigator.pop(context);
           image = selectedImage;
           DialogCustom.dialogSuccess(
               context: context, msg: MsgsCustom.uploadSuccess);
         });
       }).catchError((error) {
+        Navigator.pop(context);
         DialogCustom.dialogError(context: context, msg: error);
       });
     }
@@ -103,6 +107,7 @@ class _CategoryFormViewState extends State<CategoryFormView> {
                 ImageContainer(
                   image: image,
                   saveImage: saveImage,
+                  disabled: obj.id == null,
                 ),
                 const SizedBox(
                   height: 10,

@@ -5,10 +5,11 @@ import 'package:image_picker/image_picker.dart';
 
 class ButtonSendImage extends StatefulWidget {
   Function(XFile image) saveImage;
-
+  final bool disabled;
   ButtonSendImage({
     super.key,
     required this.saveImage,
+    this.disabled = false,
   });
 
   @override
@@ -40,47 +41,51 @@ class _ButtonSendImageState extends State<ButtonSendImage> {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: OutlinedButton(
-        onPressed: () async {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return Container(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.camera_alt),
-                      title: const Text('Câmera'),
-                      onTap: () async {
-                        final XFile? selectedImage = await _picker.pickImage(
-                          source: ImageSource.camera,
-                        );
-                        if (selectedImage != null) {
-                          await cropImage(selectedImage);
-                        }
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.photo_library),
-                      title: const Text('Galeria'),
-                      onTap: () async {
-                        final XFile? selectedImage = await _picker.pickImage(
-                          source: ImageSource.gallery,
-                        );
-                        if (selectedImage != null) {
-                          await cropImage(selectedImage);
-                        }
-                        Navigator.pop(context);
-                      },
-                    )
-                  ],
-                ),
-              );
-            },
-          );
-        },
+        onPressed: widget.disabled
+            ? null
+            : () async {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ListTile(
+                            leading: const Icon(Icons.camera_alt),
+                            title: const Text('Câmera'),
+                            onTap: () async {
+                              final XFile? selectedImage =
+                                  await _picker.pickImage(
+                                source: ImageSource.camera,
+                              );
+                              if (selectedImage != null) {
+                                await cropImage(selectedImage);
+                              }
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.photo_library),
+                            title: const Text('Galeria'),
+                            onTap: () async {
+                              final XFile? selectedImage =
+                                  await _picker.pickImage(
+                                source: ImageSource.gallery,
+                              );
+                              if (selectedImage != null) {
+                                await cropImage(selectedImage);
+                              }
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
         child: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Row(

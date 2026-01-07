@@ -6,6 +6,7 @@ import 'package:checkplay_mobile/core/provider/user/user_provider_impl.dart';
 import 'package:checkplay_mobile/core/routes/router_name.dart';
 import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
 import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
+import 'package:checkplay_mobile/domain/models/entities/checkplay.dart';
 import 'package:checkplay_mobile/domain/providers/checkplay/checkplay_provider_impl.dart';
 import 'package:checkplay_mobile/views/base/components/drawer_custom.dart';
 import 'package:checkplay_mobile/views/home/component/card_main.dart';
@@ -105,9 +106,9 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           onTap: () {
                             provider.obj = obj;
-                            // Navigator.of(context).pushNamed(
-                            //   RouterName.accountRoute,
-                            // );
+                            Navigator.of(context).pushNamed(
+                              RouterName.checkplayForm,
+                            );
                           },
                           onLongPress: () {
                             DialogCustom.dialogConfirm(
@@ -147,7 +148,12 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          provider.obj = Checkplay.empty();
+          Navigator.of(context).pushNamed(
+            RouterName.checkplayForm,
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );

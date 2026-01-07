@@ -6,10 +6,12 @@ import 'package:checkplay_mobile/core/components/images/image_custom.dart';
 class ImageContainer extends StatelessWidget {
   final dynamic image;
   final Function(XFile image) saveImage;
+  final bool disabled;
   const ImageContainer({
     super.key,
     required this.image,
     required this.saveImage,
+    this.disabled = false,
   });
 
   @override
@@ -34,6 +36,7 @@ class ImageContainer extends StatelessWidget {
                 ),
               ),
         ButtonSendImage(
+          disabled: disabled,
           saveImage: (image) {
             saveImage(image);
           },

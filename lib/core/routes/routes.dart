@@ -1,4 +1,5 @@
 import 'package:checkplay_mobile/views/category/category_form_view.dart';
+import 'package:checkplay_mobile/views/checkplay_form/checkplay_form_view.dart';
 import 'package:checkplay_mobile/views/filter_config/filter_config_view.dart';
 import 'package:checkplay_mobile/views/login/login_view.dart';
 import 'package:checkplay_mobile/views/register/sign_up_view.dart';
@@ -20,6 +21,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const CategoryFormView());
       case RouterName.filterConfig:
         return MaterialPageRoute(builder: (_) => const FilterConfigView());
+      case RouterName.checkplayForm:
+        return MaterialPageRoute(builder: (_) => const CheckplayFormView());
       default:
         return MaterialPageRoute(builder: (_) => const SplashView());
     }
