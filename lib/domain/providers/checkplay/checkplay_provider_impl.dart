@@ -60,7 +60,7 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
     loading = false;
     switch (result) {
       case Success():
-        return;
+        await search();
       case Failure(:final exception):
         return Future.error(exception.message);
     }

@@ -106,7 +106,7 @@ abstract class ImageCustom {
     } else if (file is XFile) {
       imageProvider = FileImage(File(file.path));
     } else {
-      imageProvider = const AssetImage("images/not_found.png");
+      imageProvider = const AssetImage("images/logo.png");
     }
 
     if (!showGallery) {

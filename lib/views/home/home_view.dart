@@ -115,25 +115,13 @@ class _HomeViewState extends State<HomeView> {
                               context: context,
                               msg: MsgsCustom.confirmationDelete,
                               onPressed: () async {
-                                provider.obj = obj;
-                                try {
-                                  await provider.remove(obj.id!);
-                                  if (mounted) {
-                                    DialogCustom.dialogSuccess(
-                                      context: context,
-                                      msg: MsgsCustom.deleted,
-                                    );
-                                    Navigator.of(context).pop();
-                                  }
-                                } catch (err) {
-                                  if (mounted) {
-                                    Navigator.of(context).pop();
-                                    DialogCustom.dialogError(
-                                      context: context,
-                                      msg: '$err',
-                                    );
-                                  }
-                                }
+                                //TODO: RESOLVER O ERRO!
+                                provider.remove(obj.id!);
+                                DialogCustom.dialogSuccess(
+                                  context: context,
+                                  msg: MsgsCustom.deleted,
+                                );
+                                Navigator.pop(context);
                               },
                             );
                           },

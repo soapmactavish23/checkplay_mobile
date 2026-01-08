@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:checkplay_mobile/core/components/lists/not_found.dart';
 import 'package:checkplay_mobile/core/components/search/icon_search.dart';
 import 'package:checkplay_mobile/core/components/utils/card_custom_image.dart';
@@ -65,10 +67,13 @@ class _CategoryViewState extends State<CategoryView> {
                     DialogCustom.dialogConfirm(
                       context: context,
                       msg: MsgsCustom.confirmationDelete,
-                      onPressed: () {
+                      onPressed: () async {
+                        //TODO: RESOLVER O ERRO!
                         provider.remove(obj.id!);
                         DialogCustom.dialogSuccess(
-                            context: context, msg: MsgsCustom.deleted);
+                          context: context,
+                          msg: MsgsCustom.deleted,
+                        );
                         Navigator.pop(context);
                       },
                     );
