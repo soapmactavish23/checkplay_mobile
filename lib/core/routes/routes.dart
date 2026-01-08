@@ -4,6 +4,7 @@ import 'package:checkplay_mobile/views/filter_config/filter_config_view.dart';
 import 'package:checkplay_mobile/views/groups/groups_form_view.dart';
 import 'package:checkplay_mobile/views/login/login_view.dart';
 import 'package:checkplay_mobile/views/register/sign_up_view.dart';
+import 'package:checkplay_mobile/views/users/users_form_view.dart';
 import 'package:flutter/material.dart';
 import 'package:checkplay_mobile/core/routes/router_name.dart';
 import 'package:checkplay_mobile/views/base/base_view.dart';
@@ -26,6 +27,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const CheckplayFormView());
       case RouterName.groupForm:
         return MaterialPageRoute(builder: (_) => const GroupsFormView());
+      case RouterName.userForm:
+        return MaterialPageRoute(builder: (_) => const UsersFormView());
       default:
         return MaterialPageRoute(builder: (_) => const SplashView());
     }

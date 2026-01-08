@@ -124,6 +124,9 @@ class _CategoryFormViewState extends State<CategoryFormView> {
                         label: 'Nome',
                         onSaved: (value) {
                           obj.name = value!;
+                          setState(() {
+                            _title = value;
+                          });
                         },
                       ),
                       const SizedBox(

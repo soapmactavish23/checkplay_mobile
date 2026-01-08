@@ -121,7 +121,10 @@ class _UsersViewState extends State<UsersView> {
                         ),
                         onTap: () {
                           provider.obj = obj;
-                          Navigator.pushNamed(context, RouterName.groupForm);
+                          Navigator.pushNamed(
+                            context,
+                            RouterName.userForm,
+                          );
                         },
                         onLongPress: () {
                           DialogCustom.dialogConfirm(
@@ -144,7 +147,7 @@ class _UsersViewState extends State<UsersView> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           provider.obj = User.empty();
-          Navigator.pushNamed(context, RouterName.groupForm);
+          Navigator.pushNamed(context, RouterName.userForm);
         },
         child: const Icon(Icons.add),
       ),

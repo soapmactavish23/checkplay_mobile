@@ -94,6 +94,9 @@ class _GroupsFormViewState extends State<GroupsFormView> {
                       label: 'Nome',
                       onSaved: (value) {
                         obj.name = value!;
+                        setState(() {
+                          _title = value;
+                        });
                       },
                     ),
                     const SizedBox(
