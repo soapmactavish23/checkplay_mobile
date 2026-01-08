@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:checkplay_mobile/core/auth/models/group.dart';
 import 'package:checkplay_mobile/core/components/lists/not_found.dart';
 import 'package:checkplay_mobile/core/components/search/icon_search.dart';
 import 'package:checkplay_mobile/core/components/utils/card_custom.dart';
@@ -78,7 +79,7 @@ class _GroupsViewState extends State<GroupsView> {
                   title: obj.name,
                   onTap: () {
                     provider.obj = obj;
-                    // Navigator.pushNamed(context, RouterName.categoryForm);
+                    Navigator.pushNamed(context, RouterName.groupForm);
                   },
                   onLongPress: () {
                     DialogCustom.dialogConfirm(
@@ -96,7 +97,10 @@ class _GroupsViewState extends State<GroupsView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          provider.obj = Group.empty();
+          Navigator.pushNamed(context, RouterName.groupForm);
+        },
         child: const Icon(Icons.add),
       ),
     );
