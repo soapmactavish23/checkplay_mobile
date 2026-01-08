@@ -26,6 +26,20 @@ class _CategoryViewState extends State<CategoryView> {
     super.initState();
   }
 
+  onDelete(String id) {
+    final provider = context.read<CategoryProviderImpl>();
+    provider.remove(id).then((value) {
+      DialogCustom.dialogSuccess(
+        context: context,
+        msg: MsgsCustom.deleted,
+      );
+    }).catchError((error) {
+      DialogCustom.dialogError(context: context, msg: '$error');
+    });
+
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<CategoryProviderImpl>();
@@ -68,13 +82,7 @@ class _CategoryViewState extends State<CategoryView> {
                       context: context,
                       msg: MsgsCustom.confirmationDelete,
                       onPressed: () async {
-                        //TODO: RESOLVER O ERRO!
-                        provider.remove(obj.id!);
-                        DialogCustom.dialogSuccess(
-                          context: context,
-                          msg: MsgsCustom.deleted,
-                        );
-                        Navigator.pop(context);
+                        onDelete(obj.id!);
                       },
                     );
                   },

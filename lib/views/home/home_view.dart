@@ -33,6 +33,21 @@ class _HomeViewState extends State<HomeView> {
     provider.search();
   }
 
+  onDelete(String id) {
+    final provider = context.read<CheckplayProviderImpl>();
+    provider.remove(id).then((value) {
+      DialogCustom.dialogSuccess(
+        context: context,
+        msg: MsgsCustom.deleted,
+      );
+    }).catchError((error) {
+      Navigator.pop(context);
+      DialogCustom.dialogError(context: context, msg: '$error');
+    });
+
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<CheckplayProviderImpl>();
@@ -115,13 +130,7 @@ class _HomeViewState extends State<HomeView> {
                               context: context,
                               msg: MsgsCustom.confirmationDelete,
                               onPressed: () async {
-                                //TODO: RESOLVER O ERRO!
-                                provider.remove(obj.id!);
-                                DialogCustom.dialogSuccess(
-                                  context: context,
-                                  msg: MsgsCustom.deleted,
-                                );
-                                Navigator.pop(context);
+                                onDelete(obj.id!);
                               },
                             );
                           },
