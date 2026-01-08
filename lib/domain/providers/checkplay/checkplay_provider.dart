@@ -10,5 +10,6 @@ mixin CheckplayProvider {
   Future<void> finishCheck(String id);
   Future<void> remove(String id);
   Future<void> upload(File file);
+  Future<void> changeAction();
   void updateUser(User? user);
 }

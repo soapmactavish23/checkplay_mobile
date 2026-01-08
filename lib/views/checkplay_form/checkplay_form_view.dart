@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/components/forms/buttom_custom.dart';
 import 'package:checkplay_mobile/core/components/forms/dropdown_search.dart';
 import 'package:checkplay_mobile/core/components/forms/input_custom.dart';
+import 'package:checkplay_mobile/core/components/forms/outlined_custom_button.dart';
 import 'package:checkplay_mobile/core/components/images/image_container.dart';
 import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
 import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
@@ -58,6 +59,7 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
     setState(() {
       _title = t;
       nameEC.text = obj.name;
+      descriptionEC.text = obj.description;
       image = obj.image;
 
       if (obj.category.id != null) {
@@ -81,14 +83,15 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
         });
       }).catchError((error) {
         Navigator.pop(context);
-        DialogCustom.dialogError(context: context, msg: error);
+        DialogCustom.dialogError(context: context, msg: '$error');
       });
     }
   }
 
-  Future<void> send() async {
+  send() {
     formKey.currentState!.save();
     final provider = context.read<CheckplayProviderImpl>();
+    provider.obj = obj;
     DialogCustom.dialogLoading(context);
     provider.save().then((value) {
       Navigator.pop(context);
@@ -96,11 +99,28 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
         context: context,
         msg: MsgsCustom.saved,
       );
-      Navigator.pop(context);
     }).catchError((error) {
       Navigator.pop(context);
-      DialogCustom.dialogError(context: context, msg: error);
+      DialogCustom.dialogError(context: context, msg: '$error');
+    });
+  }
+
+  changeAction() {
+    final provider = context.read<CheckplayProviderImpl>();
+    provider.obj = obj;
+    DialogCustom.dialogLoading(context);
+    provider.changeAction().then((value) {
       Navigator.pop(context);
+      DialogCustom.dialogSuccess(
+        context: context,
+        msg: MsgsCustom.saved,
+      );
+      setState(() {
+        obj.getValueAction();
+      });
+    }).catchError((error) {
+      Navigator.pop(context);
+      DialogCustom.dialogError(context: context, msg: '$error');
     });
   }
 
@@ -141,12 +161,20 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
                       builder: (_, provider, __) {
                         final list = provider.list;
                         return DropdownSearch(
-                          validator: Validatorless.required(
-                            'Categoria é obrigatório',
-                          ),
+                          validator: (value) {
+                            if (value == null || value.id == null) {
+                              return 'Categoria é obrigatória';
+                            }
+                            return null;
+                          },
                           items: list,
                           itemAsString: (item) => item.name,
                           selectedItem: category,
+                          onChanged: (value) {
+                            setState(() {
+                              category = value;
+                            });
+                          },
                           onSaved: (value) {
                             obj.category = value!;
                           },
@@ -175,8 +203,27 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
                     ButtomCustom(
                       label: 'Salvar',
                       onPressed: () {
-                        if (formKey.currentState!.validate()) {}
+                        if (formKey.currentState!.validate()) {
+                          send();
+                        }
                       },
+                    ),
+                    Visibility(
+                      visible: obj.id != null,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          OutlinedCustomButton(
+                            label: obj.getTextAction(),
+                            btnTextColor: obj.getColorAction(),
+                            onPressed: () {
+                              changeAction();
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 30,

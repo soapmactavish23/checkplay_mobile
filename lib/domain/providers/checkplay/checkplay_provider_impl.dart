@@ -4,6 +4,7 @@ import 'package:checkplay_mobile/core/auth/models/user.dart';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
+import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
 import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 import 'package:checkplay_mobile/domain/models/dto/upload_dto.dart';
 import 'package:checkplay_mobile/domain/models/entities/checkplay.dart';
@@ -126,6 +127,23 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
         await search();
       case Failure(:final exception):
         return Future.error(exception.message);
+    }
+  }
+
+  @override
+  Future<void> changeAction() async {
+    try {
+      switch (obj.status) {
+        case CheckplayStatus.PENDING:
+          await initCheck(obj.id!);
+        case CheckplayStatus.PROGRESS:
+          await finishCheck(obj.id!);
+        case CheckplayStatus.FINISH:
+          await resetCheck(obj.id!);
+      }
+      await search();
+    } catch (e) {
+      return Future.error(e);
     }
   }
 }

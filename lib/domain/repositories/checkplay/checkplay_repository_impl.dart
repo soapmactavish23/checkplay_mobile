@@ -62,7 +62,7 @@ class CheckplayRepositoryImpl extends RestClient with CheckplayRepository {
   @override
   Future<Either<RepositoryException, Nil>> resetCheck(String id) async {
     try {
-      await auth.put('/check-play/$id');
+      await auth.put('/check-play/reiniciar-check/$id');
       return Success(nil);
     } on Exception catch (e, s) {
       const msg = "Erro ao reinciar checkplay";

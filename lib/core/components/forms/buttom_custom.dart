@@ -12,7 +12,7 @@ class ButtomCustom extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
 
   const ButtomCustom({
-    Key? key,
+    super.key,
     required this.label,
     this.onPressed,
     this.width,
@@ -22,7 +22,7 @@ class ButtomCustom extends StatelessWidget {
     this.btnTextColor = Colors.white,
     this.icon,
     this.mainAxisAlignment = MainAxisAlignment.center,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,12 @@ class ButtomCustom extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor: WidgetStateProperty.all<Color>(
             backgroundColor == null
                 ? Theme.of(context).primaryColor
                 : backgroundColor!,
           ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32),
             ),
