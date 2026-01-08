@@ -10,6 +10,8 @@ class DrawerCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<UserProviderImpl>();
+
     return Drawer(
       backgroundColor: Colors.white,
       child: Column(
@@ -47,18 +49,47 @@ class DrawerCustom extends StatelessWidget {
                     context.read<PageManager>().setPage(PageManager.profile);
                   },
                 ),
+                Visibility(
+                  visible: provider.isAdmin(),
+                  child: ListTile(
+                    leading: const Icon(Icons.people),
+                    title: const Text('Usuários'),
+                    onTap: () {
+                      context.read<PageManager>().setPage(PageManager.users);
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: provider.isAdmin(),
+                  child: ListTile(
+                    leading: const Icon(Icons.group_outlined),
+                    title: const Text('Grupos'),
+                    onTap: () {
+                      context.read<PageManager>().setPage(PageManager.groups);
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: provider.isAdmin(),
+                  child: ListTile(
+                    leading: const Icon(Icons.description),
+                    title: const Text('Logs'),
+                    onTap: () {
+                      context.read<PageManager>().setPage(PageManager.logs);
+                    },
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.exit_to_app),
+                  title: const Text('Sair'),
+                  onTap: () {
+                    final provider = context.read<UserProviderImpl>();
+                    provider.signOut();
+                    Navigator.of(context).pushNamed(RouterName.loginRoute);
+                  },
+                ),
               ],
             ),
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.exit_to_app),
-            title: const Text('Sair'),
-            onTap: () {
-              final provider = context.read<UserProviderImpl>();
-              provider.signOut();
-              Navigator.of(context).pushNamed(RouterName.loginRoute);
-            },
           ),
         ],
       ),

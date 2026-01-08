@@ -1,4 +1,5 @@
 import 'package:checkplay_mobile/core/auth/models/dto/profile_dto.dart';
+import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -180,6 +181,14 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
         Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);
+    }
+  }
+
+  bool isAdmin() {
+    if (userLogged!.group.id == GroupsConstants.ADMIN_ID) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
