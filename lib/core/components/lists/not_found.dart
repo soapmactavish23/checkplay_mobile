@@ -6,34 +6,15 @@ class NotFound extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorDefault = Theme.of(context).primaryColor.withAlpha(400);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Opacity(
           opacity: 0.6,
           child: Image.asset(
-            ImageConstants.logo,
-            width: 200,
+            ImageConstants.not_found,
+            width: 400,
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.block,
-              color: colorDefault,
-            ),
-            Text(
-              'NENHUM REGISTRO ENCONTRADO',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: colorDefault,
-              ),
-            ),
-          ],
         ),
       ],
     );

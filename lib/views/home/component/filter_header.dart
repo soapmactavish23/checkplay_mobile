@@ -40,7 +40,6 @@ class FilterHeader extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      //TODO QUERO DEIXAR ESSE CONTAINER COM AS BORDAS ARREDONDADAS
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: Container(

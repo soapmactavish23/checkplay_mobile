@@ -6,4 +6,5 @@ mixin UserProvider {
   Future<void> findById(String code);
   Future<void> register();
   Future<void> editProfile();
+  Future<void> search();
 }

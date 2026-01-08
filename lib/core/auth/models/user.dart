@@ -2,6 +2,8 @@
 import 'dart:convert';
 
 import 'package:checkplay_mobile/core/auth/models/group.dart';
+import 'package:checkplay_mobile/core/constants/constants.dart';
+import 'package:flutter/material.dart';
 
 class User {
   String? id;
@@ -27,6 +29,14 @@ class User {
       status: true,
       group: Group.empty(),
     );
+  }
+
+  Color getColorByStatus() {
+    if (status) {
+      return ColorsConstants.success;
+    } else {
+      return ColorsConstants.danger;
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -59,5 +69,13 @@ class User {
   @override
   String toString() {
     return 'User(id: $id, name: $name, email: $email, password: $password, status: $status, group: $group)';
+  }
+
+  String getTitleByStatus() {
+    if (status) {
+      return 'ATIVO';
+    } else {
+      return 'INATIVO';
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:checkplay_mobile/core/auth/models/dto/profile_dto.dart';
+import 'package:checkplay_mobile/core/auth/models/dto/user_filter.dart';
 import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:checkplay_mobile/core/fp/nil.dart';
@@ -20,6 +21,7 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
   bool _loading = false;
   User? userLogged;
   UserServiceImpl service = UserServiceImpl();
+  final filter = UserFilter();
 
   set loading(bool value) {
     _loading = value;
@@ -91,9 +93,13 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
     }
   }
 
-  Future<void> search({String name = ""}) async {
+  @override
+  Future<void> search() async {
     loading = true;
-    final result = await service.search(name: name);
+    final result = await service.search(
+      name: filter.name,
+      email: filter.email,
+    );
 
     switch (result) {
       case Success(value: final List<User> users):
