@@ -36,7 +36,7 @@ class OutlinedCustomButton extends StatelessWidget {
           side: WidgetStateProperty.resolveWith<BorderSide>(
             (states) {
               if (states.contains(WidgetState.disabled)) {
-                return BorderSide(color: btnTextColor.withOpacity(0.4));
+                return BorderSide(color: btnTextColor);
               }
               return BorderSide(color: btnTextColor, width: 1.5);
             },

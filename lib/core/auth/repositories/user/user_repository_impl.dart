@@ -102,6 +102,7 @@ class UserRepositoryImpl extends RestClient with UserRepository {
     try {
       final response = await auth.get('/usuarios', queryParameters: {
         'name': name,
+        'email': email,
         'page': 0,
         'size': 10,
       });
