@@ -7,7 +7,7 @@ abstract class ImageConstants {
   static const imageUser = "images/user.png";
   static const loading = "images/loading.gif";
   static const not_found = "images/not_found.png";
-  static const marker = "images/marker.png";
+  static const groups = 'images/groups.png';
 }
 
 abstract class ColorsConstants {
