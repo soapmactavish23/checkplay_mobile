@@ -21,17 +21,28 @@ class _ButtonSendImageState extends State<ButtonSendImage> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> cropImage(XFile selectedImage) async {
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
+    final croppedFile = await ImageCropper().cropImage(
       sourcePath: selectedImage.path,
-      aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Editar Imagem',
           toolbarColor: Theme.of(context).primaryColor,
           toolbarWidgetColor: Colors.white,
-        )
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: false,
+          showCropGrid: true,
+          hideBottomControls: false,
+        ),
+        IOSUiSettings(
+          title: 'Editar Imagem',
+          aspectRatioLockEnabled: false,
+          resetAspectRatioEnabled: true,
+          aspectRatioPickerButtonHidden: false,
+        ),
       ],
     );
+
     if (croppedFile != null) {
       widget.saveImage(XFile(croppedFile.path));
     }
@@ -46,50 +57,49 @@ class _ButtonSendImageState extends State<ButtonSendImage> {
             ? null
             : () async {
                 DialogCustom.dialogComponent(
-                    context: context,
-                    title: 'Selecione',
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Divider(
-                          color: Colors.black,
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.camera_alt),
-                          title: const Text('Câmera'),
-                          onTap: () async {
-                            final XFile? selectedImage =
-                                await _picker.pickImage(
-                              source: ImageSource.camera,
-                            );
-                            if (selectedImage != null) {
-                              await cropImage(selectedImage);
-                            }
-                            Navigator.pop(context);
-                          },
-                        ),
-                        const Divider(
-                          color: Colors.black,
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.photo_library),
-                          title: const Text('Galeria'),
-                          onTap: () async {
-                            final XFile? selectedImage =
-                                await _picker.pickImage(
-                              source: ImageSource.gallery,
-                            );
-                            if (selectedImage != null) {
-                              await cropImage(selectedImage);
-                            }
-                            Navigator.pop(context);
-                          },
-                        ),
-                        const Divider(
-                          color: Colors.black,
-                        ),
-                      ],
-                    ));
+                  context: context,
+                  title: 'Selecione',
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Divider(
+                        color: Colors.black,
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.camera_alt),
+                        title: const Text('Câmera'),
+                        onTap: () async {
+                          final XFile? selectedImage = await _picker.pickImage(
+                            source: ImageSource.camera,
+                          );
+                          if (selectedImage != null) {
+                            await cropImage(selectedImage);
+                          }
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Divider(
+                        color: Colors.black,
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.photo_library),
+                        title: const Text('Galeria'),
+                        onTap: () async {
+                          final XFile? selectedImage = await _picker.pickImage(
+                            source: ImageSource.gallery,
+                          );
+                          if (selectedImage != null) {
+                            await cropImage(selectedImage);
+                          }
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Divider(
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                );
               },
         child: const Padding(
           padding: EdgeInsets.all(8.0),
