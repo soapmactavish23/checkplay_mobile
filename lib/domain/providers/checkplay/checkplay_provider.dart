@@ -12,4 +12,5 @@ mixin CheckplayProvider {
   Future<void> upload(File file);
   Future<void> changeAction();
   void updateUser(User? user);
+  Future<void> findById();
 }

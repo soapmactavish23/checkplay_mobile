@@ -22,7 +22,7 @@ abstract class DialogCustom {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(
-          seconds: 5,
+          seconds: 1,
         ),
         content: Text(msg),
         backgroundColor: Colors.green,

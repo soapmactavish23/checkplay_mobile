@@ -97,4 +97,15 @@ class CheckplayServiceImpl implements CheckplayService {
         return Failure(ServiceException(message: exception.message));
     }
   }
+
+  @override
+  Future<Either<ServiceException, Checkplay>> findById(String id) async {
+    final result = await _repository.findById(id);
+    switch (result) {
+      case Success(:final value):
+        return Success(value);
+      case Failure(:final exception):
+        return Failure(ServiceException(message: exception.message));
+    }
+  }
 }

@@ -15,4 +15,5 @@ mixin CheckplayRepository {
   Future<Either<RepositoryException, Nil>> initCheck(String id);
   Future<Either<RepositoryException, Nil>> finishCheck(String id);
   Future<Either<RepositoryException, Nil>> remove(String id);
+  Future<Either<RepositoryException, Checkplay>> findById(String id);
 }

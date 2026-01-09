@@ -15,4 +15,5 @@ abstract interface class CheckplayService {
   Future<Either<ServiceException, Nil>> initCheck(String id);
   Future<Either<ServiceException, Nil>> finishCheck(String id);
   Future<Either<ServiceException, Nil>> remove(String id);
+  Future<Either<ServiceException, Checkplay>> findById(String id);
 }

@@ -58,7 +58,7 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
     setState(() {
       _title = t;
       nameEC.text = obj.name;
-      descriptionEC.text = obj.description;
+      descriptionEC.text = obj.description ?? '';
       image = obj.image;
 
       if (obj.category.id != null) {
@@ -87,7 +87,7 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
     }
   }
 
-  send() {
+  Future<void> send() async {
     formKey.currentState!.save();
     final provider = context.read<CheckplayProviderImpl>();
     provider.obj = obj;
@@ -98,6 +98,7 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
         context: context,
         msg: MsgsCustom.saved,
       );
+      loadData();
     }).catchError((error) {
       Navigator.pop(context);
       DialogCustom.dialogError(context: context, msg: '$error');
@@ -199,9 +200,10 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
                     ),
                     ButtomCustom(
                       label: 'Salvar',
-                      onPressed: () {
+                      onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          send();
+                          await send();
+                          loadData();
                         }
                       },
                     ),

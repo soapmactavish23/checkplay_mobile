@@ -9,7 +9,7 @@ class Checkplay {
   String? id;
   Category category;
   String name;
-  String description;
+  String? description;
   String status = CheckplayStatus.PENDING;
   dynamic image;
   DateTime? dtCreated;
@@ -19,7 +19,7 @@ class Checkplay {
     this.id,
     required this.category,
     required this.name,
-    required this.description,
+    this.description,
     required this.status,
     required this.image,
     this.dtCreated,
@@ -32,7 +32,7 @@ class Checkplay {
       id: null,
       category: Category.empty(),
       name: '',
-      description: '',
+      description: null,
       status: CheckplayStatus.PENDING,
       image: null,
       dtCreated: null,

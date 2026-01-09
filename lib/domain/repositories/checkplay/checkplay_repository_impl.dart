@@ -127,4 +127,16 @@ class CheckplayRepositoryImpl extends RestClient with CheckplayRepository {
       return Failure(RepositoryException(message: msg));
     }
   }
+
+  @override
+  Future<Either<RepositoryException, Checkplay>> findById(String id) async {
+    try {
+      final result = await auth.get('/check-play/$id');
+      return Success(Checkplay.fromMap(result.data));
+    } on Exception catch (e, s) {
+      String msg = 'Erro ao pesquisar o checkplay.';
+      log(msg, error: e, stackTrace: s);
+      return Failure(RepositoryException(message: msg));
+    }
+  }
 }

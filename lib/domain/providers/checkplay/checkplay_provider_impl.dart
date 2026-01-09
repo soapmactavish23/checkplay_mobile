@@ -91,6 +91,7 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
 
     switch (result) {
       case Success():
+        await findById();
         await search();
       case Failure(:final exception):
         return Future.error(exception.message);
@@ -144,6 +145,21 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
       await search();
     } catch (e) {
       return Future.error(e);
+    }
+  }
+
+  @override
+  Future<void> findById() async {
+    loading = true;
+    final result = await _service.findById(obj.id!);
+    loading = false;
+    switch (result) {
+      case Success(:final value):
+        obj = value;
+        loading = false;
+        return Future.value();
+      case Failure(:final exception):
+        return Future.error(exception.message);
     }
   }
 }
