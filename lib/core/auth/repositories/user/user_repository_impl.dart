@@ -80,11 +80,10 @@ class UserRepositoryImpl extends RestClient with UserRepository {
   }
 
   @override
-  Future<Either<RepositoryException, Nil>> resetPassword(String email) async {
+  Future<Either<RepositoryException, Nil>> resetPassword(String id) async {
     try {
       await auth.put(
-        '/usuarios/resetar-senha',
-        data: {email: email},
+        '/usuarios/resetar-senha/$id',
       );
       return Success(nil);
     } catch (e, s) {
@@ -157,6 +156,18 @@ class UserRepositoryImpl extends RestClient with UserRepository {
       return Success(nil);
     } catch (e, s) {
       String msg = 'Erro ao registrar usuário';
+      log(msg, error: e, stackTrace: s);
+      return Failure(RepositoryException(message: msg));
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, Nil>> changeStatus(String id) async {
+    try {
+      await auth.put('/usuarios/status/$id');
+      return Success(nil);
+    } catch (e, s) {
+      String msg = 'Erro ao atualizar usuário';
       log(msg, error: e, stackTrace: s);
       return Failure(RepositoryException(message: msg));
     }

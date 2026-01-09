@@ -69,8 +69,8 @@ class UserServiceImpl implements UserService {
   }
 
   @override
-  Future<Either<ServiceException, Nil>> resetPassword(String email) async {
-    final result = await _repository.resetPassword(email);
+  Future<Either<ServiceException, Nil>> resetPassword(String id) async {
+    final result = await _repository.resetPassword(id);
     switch (result) {
       case Success():
         return Success(nil);
@@ -117,6 +117,17 @@ class UserServiceImpl implements UserService {
   @override
   Future<Either<ServiceException, Nil>> register(User obj) async {
     final result = await _repository.register(obj);
+    switch (result) {
+      case Success():
+        return Success(nil);
+      case Failure(:final exception):
+        return Failure(ServiceException(message: exception.message));
+    }
+  }
+
+  @override
+  Future<Either<ServiceException, Nil>> changeStatus(String id) async {
+    final result = await _repository.changeStatus(id);
     switch (result) {
       case Success():
         return Success(nil);

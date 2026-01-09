@@ -119,6 +119,7 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
     loading = false;
     switch (result) {
       case Success():
+        await search();
         Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);
@@ -195,6 +196,35 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
       return true;
     } else {
       return false;
+    }
+  }
+
+  @override
+  Future<void> changeStatus() async {
+    loading = true;
+    final result = await service.changeStatus(obj.id!);
+    loading = false;
+
+    switch (result) {
+      case Success():
+        await search();
+        return Future.value();
+      case Failure(:final exception):
+        return Future.error(exception.message);
+    }
+  }
+
+  @override
+  Future<void> resetPassword() async {
+    loading = true;
+    final result = await service.resetPassword(obj.id!);
+    loading = false;
+
+    switch (result) {
+      case Success():
+        return Future.value();
+      case Failure(:final exception):
+        return Future.error(exception.message);
     }
   }
 }

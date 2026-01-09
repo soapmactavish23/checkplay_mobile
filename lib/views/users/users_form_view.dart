@@ -4,8 +4,10 @@ import 'package:checkplay_mobile/core/auth/models/group.dart';
 import 'package:checkplay_mobile/core/auth/models/user.dart';
 import 'package:checkplay_mobile/core/components/forms/buttom_custom.dart';
 import 'package:checkplay_mobile/core/components/forms/input_custom.dart';
+import 'package:checkplay_mobile/core/components/forms/outlined_custom_button.dart';
 import 'package:checkplay_mobile/core/components/search/dropdown_search_custom.dart';
 import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
+import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:checkplay_mobile/core/provider/group/group_provider_impl.dart';
 import 'package:checkplay_mobile/core/provider/user/user_provider_impl.dart';
 import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
@@ -73,6 +75,41 @@ class _UsersFormViewState extends State<UsersFormView> {
       Navigator.pop(context);
       DialogCustom.dialogError(context: context, msg: error);
       Navigator.pop(context);
+    });
+  }
+
+  Future<void> changeStatus() async {
+    final provider = context.read<UserProviderImpl>();
+    DialogCustom.dialogLoading(context);
+    await provider.changeStatus().then((value) {
+      Navigator.pop(context);
+      setState(() {
+        obj.status = !obj.status;
+      });
+    }).catchError((error) {
+      Navigator.pop(context);
+      DialogCustom.dialogError(
+        context: context,
+        msg: '$error',
+      );
+    });
+  }
+
+  Future<void> resetPassword() async {
+    final provider = context.read<UserProviderImpl>();
+    DialogCustom.dialogLoading(context);
+    await provider.resetPassword().then((value) {
+      Navigator.pop(context);
+      DialogCustom.dialogSuccess(
+        context: context,
+        msg: 'Senha reiniciada com sucesso!',
+      );
+    }).catchError((error) {
+      Navigator.pop(context);
+      DialogCustom.dialogError(
+        context: context,
+        msg: '$error',
+      );
     });
   }
 
@@ -162,7 +199,7 @@ class _UsersFormViewState extends State<UsersFormView> {
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 15,
+                        height: 30,
                       ),
                       InputCustom(
                         controller: passwordEC,
@@ -208,6 +245,38 @@ class _UsersFormViewState extends State<UsersFormView> {
                       send();
                     }
                   },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Visibility(
+                  visible: obj.id != null,
+                  child: OutlinedCustomButton(
+                    btnTextColor: obj.status
+                        ? ColorsConstants.danger
+                        : ColorsConstants.success,
+                    label: obj.status ? 'Desativar' : 'Ativar',
+                    icon: obj.status
+                        ? const Icon(Icons.block)
+                        : const Icon(Icons.check_circle),
+                    onPressed: () async {
+                      await changeStatus();
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Visibility(
+                  visible: obj.id != null,
+                  child: OutlinedCustomButton(
+                    btnTextColor: ColorsConstants.info,
+                    label: 'Resetar Senha',
+                    icon: const Icon(Icons.lock),
+                    onPressed: () async {
+                      await resetPassword();
+                    },
+                  ),
                 )
               ],
             ),

@@ -10,6 +10,7 @@ class OutlinedCustomButton extends StatelessWidget {
   final Color btnTextColor;
   final Widget? icon;
   final MainAxisAlignment mainAxisAlignment;
+  final bool isLoading;
   const OutlinedCustomButton({
     super.key,
     required this.label,
@@ -20,10 +21,32 @@ class OutlinedCustomButton extends StatelessWidget {
     this.btnTextColor = Colors.black,
     this.icon,
     this.mainAxisAlignment = MainAxisAlignment.center,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> getChildren() {
+      if (isLoading) {
+        return [
+          CircularProgressIndicator(
+            color: btnTextColor,
+          )
+        ];
+      } else {
+        return [
+          icon ?? Container(),
+          Text(
+            label,
+            style: TextStyle(
+              color: btnTextColor,
+              fontSize: fontSize,
+            ),
+          ),
+        ];
+      }
+    }
+
     return SizedBox(
       width: width,
       child: OutlinedButton(
@@ -48,16 +71,7 @@ class OutlinedCustomButton extends StatelessWidget {
           padding: padding,
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
-            children: [
-              icon ?? Container(),
-              Text(
-                label,
-                style: TextStyle(
-                  color: btnTextColor,
-                  fontSize: fontSize,
-                ),
-              ),
-            ],
+            children: getChildren(),
           ),
         ),
       ),

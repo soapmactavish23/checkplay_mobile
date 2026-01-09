@@ -7,4 +7,6 @@ mixin UserProvider {
   Future<void> register();
   Future<void> editProfile();
   Future<void> search();
+  Future<void> changeStatus();
+  Future<void> resetPassword();
 }
