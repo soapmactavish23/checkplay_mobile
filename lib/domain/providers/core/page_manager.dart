@@ -14,7 +14,6 @@ class PageManager {
   static int profile = 2;
   static int users = 3;
   static int groups = 4;
-  static int logs = 5;
   void setPage(int value) {
     try {
       if (value == page) return;

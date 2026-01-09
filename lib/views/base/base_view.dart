@@ -2,7 +2,6 @@ import 'package:checkplay_mobile/domain/providers/core/page_manager.dart';
 import 'package:checkplay_mobile/views/category/category_view.dart';
 import 'package:checkplay_mobile/views/groups/groups_view.dart';
 import 'package:checkplay_mobile/views/home/home_view.dart';
-import 'package:checkplay_mobile/views/logs/logs_view.dart';
 import 'package:checkplay_mobile/views/profile/profile_view.dart';
 import 'package:checkplay_mobile/views/users/users_view.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,6 @@ class BaseView extends StatelessWidget {
               ProfileView(),
               UsersView(),
               GroupsView(),
-              LogsView(),
             ],
           )
         ],

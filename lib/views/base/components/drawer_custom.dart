@@ -69,16 +69,6 @@ class DrawerCustom extends StatelessWidget {
                     },
                   ),
                 ),
-                Visibility(
-                  visible: provider.isAdmin(),
-                  child: ListTile(
-                    leading: const Icon(Icons.description),
-                    title: const Text('Logs'),
-                    onTap: () {
-                      context.read<PageManager>().setPage(PageManager.logs);
-                    },
-                  ),
-                ),
                 ListTile(
                   leading: const Icon(Icons.exit_to_app),
                   title: const Text('Sair'),
