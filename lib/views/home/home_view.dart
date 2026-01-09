@@ -100,43 +100,42 @@ class _HomeViewState extends State<HomeView> {
                 return const NotFound();
               } else {
                 return Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 24),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1,
-                      ),
-                      itemCount: provider.list.length,
-                      padding: const EdgeInsets.all(8.0),
-                      itemBuilder: (context, index) {
-                        final obj = provider.list[index];
-                        return CardMain(
-                          title: obj.name,
-                          image: obj.image,
-                          categoryImage: obj.category.image,
-                          colorStatus: CheckplayStatus.getColorByStatus(
-                            obj.status,
-                          ),
-                          onTap: () {
-                            provider.obj = obj;
-                            Navigator.of(context).pushNamed(
-                              RouterName.checkplayForm,
-                            );
-                          },
-                          onLongPress: () {
-                            DialogCustom.dialogConfirm(
-                              context: context,
-                              msg: MsgsCustom.confirmationDelete,
-                              onPressed: () async {
-                                onDelete(obj.id!);
-                              },
-                            );
-                          },
-                        );
-                      },
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1,
                     ),
+                    itemCount: provider.list.length,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: MediaQuery.of(context).size.height * 0.04),
+                    itemBuilder: (context, index) {
+                      final obj = provider.list[index];
+                      return CardMain(
+                        title: obj.name,
+                        image: obj.image,
+                        categoryImage: obj.category.image,
+                        colorStatus: CheckplayStatus.getColorByStatus(
+                          obj.status,
+                        ),
+                        onTap: () {
+                          provider.obj = obj;
+                          Navigator.of(context).pushNamed(
+                            RouterName.checkplayForm,
+                          );
+                        },
+                        onLongPress: () {
+                          DialogCustom.dialogConfirm(
+                            context: context,
+                            msg: MsgsCustom.confirmationDelete,
+                            onPressed: () async {
+                              onDelete(obj.id!);
+                            },
+                          );
+                        },
+                      );
+                    },
                   ),
                 );
               }

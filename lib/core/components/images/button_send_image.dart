@@ -1,4 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, must_be_immutable
+import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -44,47 +45,51 @@ class _ButtonSendImageState extends State<ButtonSendImage> {
         onPressed: widget.disabled
             ? null
             : () async {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return Container(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ListTile(
-                            leading: const Icon(Icons.camera_alt),
-                            title: const Text('Câmera'),
-                            onTap: () async {
-                              final XFile? selectedImage =
-                                  await _picker.pickImage(
-                                source: ImageSource.camera,
-                              );
-                              if (selectedImage != null) {
-                                await cropImage(selectedImage);
-                              }
-                              Navigator.pop(context);
-                            },
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.photo_library),
-                            title: const Text('Galeria'),
-                            onTap: () async {
-                              final XFile? selectedImage =
-                                  await _picker.pickImage(
-                                source: ImageSource.gallery,
-                              );
-                              if (selectedImage != null) {
-                                await cropImage(selectedImage);
-                              }
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                );
+                DialogCustom.dialogComponent(
+                    context: context,
+                    title: 'Selecione',
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Divider(
+                          color: Colors.black,
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.camera_alt),
+                          title: const Text('Câmera'),
+                          onTap: () async {
+                            final XFile? selectedImage =
+                                await _picker.pickImage(
+                              source: ImageSource.camera,
+                            );
+                            if (selectedImage != null) {
+                              await cropImage(selectedImage);
+                            }
+                            Navigator.pop(context);
+                          },
+                        ),
+                        const Divider(
+                          color: Colors.black,
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.photo_library),
+                          title: const Text('Galeria'),
+                          onTap: () async {
+                            final XFile? selectedImage =
+                                await _picker.pickImage(
+                              source: ImageSource.gallery,
+                            );
+                            if (selectedImage != null) {
+                              await cropImage(selectedImage);
+                            }
+                            Navigator.pop(context);
+                          },
+                        ),
+                        const Divider(
+                          color: Colors.black,
+                        ),
+                      ],
+                    ));
               },
         child: const Padding(
           padding: EdgeInsets.all(8.0),

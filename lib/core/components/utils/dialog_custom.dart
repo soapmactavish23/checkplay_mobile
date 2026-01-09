@@ -52,12 +52,13 @@ abstract class DialogCustom {
         });
   }
 
-  static dialogComponent(
-      {required BuildContext context,
-      required String title,
-      required Widget content,
-      required VoidCallback onPressed,
-      String textConfirm = 'Confirmar'}) {
+  static dialogComponent({
+    required BuildContext context,
+    required String title,
+    required Widget content,
+    VoidCallback? onPressed,
+    String textConfirm = 'Confirmar',
+  }) {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -81,11 +82,14 @@ abstract class DialogCustom {
                   style: TextStyle(color: Colors.red),
                 ),
               ),
-              TextButton(
-                onPressed: onPressed,
-                child: Text(
-                  textConfirm,
-                  style: const TextStyle(color: Colors.green),
+              Visibility(
+                visible: onPressed != null,
+                child: TextButton(
+                  onPressed: onPressed,
+                  child: Text(
+                    textConfirm,
+                    style: const TextStyle(color: Colors.green),
+                  ),
                 ),
               )
             ],
