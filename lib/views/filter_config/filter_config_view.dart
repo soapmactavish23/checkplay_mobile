@@ -27,14 +27,22 @@ class _FilterConfigViewState extends State<FilterConfigView> {
         actions: [
           IconButton(
             onPressed: () {
+              DialogCustom.dialogLoading(context);
               provider.search().then(
-                    (value) => {
-                      DialogCustom.dialogSuccess(
-                        context: context,
-                        msg: 'Lista recarregada com sucesso!',
-                      )
-                    },
+                (value) {
+                  Navigator.pop(context);
+                  DialogCustom.dialogSuccess(
+                    context: context,
+                    msg: 'Lista recarregada com sucesso!',
                   );
+                },
+              ).catchError((error) {
+                Navigator.pop(context);
+                DialogCustom.dialogError(
+                  context: context,
+                  msg: '$error',
+                );
+              });
             },
             icon: const Icon(Icons.replay),
           )
