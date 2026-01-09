@@ -77,4 +77,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 	<img src="./prints/img14.png" width="200">
 	<img src="./prints/img15.png" width="200">
 	<img src="./prints/img16.png" width="200">
+	<img src="./prints/img17.png" width="200">
+	<img src="./prints/img18.png" width="200">
 </p>
