@@ -10,11 +10,11 @@ class CheckplayServiceImpl implements CheckplayService {
   final _repository = CheckplayRepositoryImpl();
 
   @override
-  Future<Either<ServiceException, Nil>> create(Checkplay request) async {
+  Future<Either<ServiceException, Checkplay>> create(Checkplay request) async {
     final result = await _repository.create(request);
     switch (result) {
-      case Success():
-        return Success(nil);
+      case Success(:final value):
+        return Success(value);
       case Failure(:final exception):
         return Failure(ServiceException(message: exception.message));
     }
@@ -77,11 +77,11 @@ class CheckplayServiceImpl implements CheckplayService {
   }
 
   @override
-  Future<Either<ServiceException, Nil>> update(Checkplay request) async {
+  Future<Either<ServiceException, Checkplay>> update(Checkplay request) async {
     final result = await _repository.update(request);
     switch (result) {
-      case Success():
-        return Success(nil);
+      case Success(:final value):
+        return Success(value);
       case Failure(:final exception):
         return Failure(ServiceException(message: exception.message));
     }

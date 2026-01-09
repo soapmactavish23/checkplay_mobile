@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/auth/models/user.dart';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
-import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:checkplay_mobile/domain/enums/checkplay_status.dart';
 import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 import 'package:checkplay_mobile/domain/models/dto/upload_dto.dart';
@@ -82,7 +81,7 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
   @override
   Future<void> save() async {
     loading = true;
-    Either<ServiceException, Nil> result;
+    Either<ServiceException, Checkplay> result;
     if (obj.id == null) {
       result = await _service.create(obj);
     } else {
@@ -90,7 +89,8 @@ class CheckplayProviderImpl extends ChangeNotifier with CheckplayProvider {
     }
 
     switch (result) {
-      case Success():
+      case Success(:final value):
+        obj = value;
         await findById();
         await search();
       case Failure(:final exception):

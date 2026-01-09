@@ -8,8 +8,8 @@ import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 abstract interface class CheckplayService {
   Future<Either<ServiceException, List<Checkplay>>> search(
       CheckplayFilter filter);
-  Future<Either<ServiceException, Nil>> update(Checkplay request);
-  Future<Either<ServiceException, Nil>> create(Checkplay request);
+  Future<Either<ServiceException, Checkplay>> update(Checkplay request);
+  Future<Either<ServiceException, Checkplay>> create(Checkplay request);
   Future<Either<ServiceException, Nil>> upload(UploadDto dto);
   Future<Either<ServiceException, Nil>> resetCheck(String id);
   Future<Either<ServiceException, Nil>> initCheck(String id);

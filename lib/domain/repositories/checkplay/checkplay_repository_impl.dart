@@ -12,10 +12,11 @@ import 'package:dio/dio.dart';
 
 class CheckplayRepositoryImpl extends RestClient with CheckplayRepository {
   @override
-  Future<Either<RepositoryException, Nil>> create(Checkplay request) async {
+  Future<Either<RepositoryException, Checkplay>> create(
+      Checkplay request) async {
     try {
-      await auth.post('/check-play', data: request.toMap());
-      return Success(nil);
+      final result = await auth.post('/check-play', data: request.toMap());
+      return Success(Checkplay.fromMap(result.data));
     } on Exception catch (e, s) {
       const msg = "Erro ao criar checkplay";
       log(msg, error: e, stackTrace: s);
@@ -95,10 +96,11 @@ class CheckplayRepositoryImpl extends RestClient with CheckplayRepository {
   }
 
   @override
-  Future<Either<RepositoryException, Nil>> update(Checkplay request) async {
+  Future<Either<RepositoryException, Checkplay>> update(
+      Checkplay request) async {
     try {
-      await auth.put('/check-play', data: request.toMap());
-      return Success(nil);
+      final result = await auth.put('/check-play', data: request.toMap());
+      return Success(Checkplay.fromMap(result.data));
     } on Exception catch (e, s) {
       const msg = "Erro ao reinciar checkplay";
       log(msg, error: e, stackTrace: s);

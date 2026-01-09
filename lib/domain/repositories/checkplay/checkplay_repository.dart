@@ -8,8 +8,8 @@ import 'package:checkplay_mobile/domain/models/dto/checkplay_filter.dart';
 mixin CheckplayRepository {
   Future<Either<RepositoryException, List<Checkplay>>> search(
       CheckplayFilter filter);
-  Future<Either<RepositoryException, Nil>> update(Checkplay request);
-  Future<Either<RepositoryException, Nil>> create(Checkplay request);
+  Future<Either<RepositoryException, Checkplay>> update(Checkplay request);
+  Future<Either<RepositoryException, Checkplay>> create(Checkplay request);
   Future<Either<RepositoryException, Nil>> upload(UploadDto dto);
   Future<Either<RepositoryException, Nil>> resetCheck(String id);
   Future<Either<RepositoryException, Nil>> initCheck(String id);
