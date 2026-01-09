@@ -85,11 +85,10 @@ class _CategoryFormViewState extends State<CategoryFormView> {
         context: context,
         msg: MsgsCustom.saved,
       );
-      Navigator.pop(context);
+      loadData();
     }).catchError((error) {
       Navigator.pop(context);
       DialogCustom.dialogError(context: context, msg: error);
-      Navigator.pop(context);
     });
   }
 

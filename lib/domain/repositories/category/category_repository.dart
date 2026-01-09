@@ -6,8 +6,9 @@ import 'package:checkplay_mobile/domain/models/entities/category.dart';
 
 mixin CategoryRepository {
   Future<Either<RepositoryException, List<Category>>> findAll();
-  Future<Either<RepositoryException, Nil>> update(Category request);
-  Future<Either<RepositoryException, Nil>> create(Category request);
+  Future<Either<RepositoryException, Category>> update(Category request);
+  Future<Either<RepositoryException, Category>> create(Category request);
   Future<Either<RepositoryException, Nil>> remove(String id);
   Future<Either<RepositoryException, Nil>> uploadImage(UploadDto dto);
+  Future<Either<RepositoryException, Category>> findById(String id);
 }

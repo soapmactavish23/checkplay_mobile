@@ -203,7 +203,6 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           await send();
-                          loadData();
                         }
                       },
                     ),

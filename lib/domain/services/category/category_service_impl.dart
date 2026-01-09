@@ -10,11 +10,11 @@ class CategoryServiceImpl implements CategoryService {
   final _repository = CategoryRepositoryImpl();
 
   @override
-  Future<Either<ServiceException, Nil>> create(Category request) async {
+  Future<Either<ServiceException, Category>> create(Category request) async {
     final result = await _repository.create(request);
     switch (result) {
-      case Success():
-        return Success(nil);
+      case Success(:final value):
+        return Success(value);
       case Failure(:final exception):
         return Failure(ServiceException(message: exception.message));
     }
@@ -43,11 +43,11 @@ class CategoryServiceImpl implements CategoryService {
   }
 
   @override
-  Future<Either<ServiceException, Nil>> update(Category request) async {
+  Future<Either<ServiceException, Category>> update(Category request) async {
     final result = await _repository.update(request);
     switch (result) {
-      case Success():
-        return Success(nil);
+      case Success(:final value):
+        return Success(value);
       case Failure(:final exception):
         return Failure(ServiceException(message: exception.message));
     }
@@ -59,6 +59,17 @@ class CategoryServiceImpl implements CategoryService {
     switch (result) {
       case Success():
         return Success(nil);
+      case Failure(:final exception):
+        return Failure(ServiceException(message: exception.message));
+    }
+  }
+
+  @override
+  Future<Either<ServiceException, Category>> findById(String id) async {
+    final result = await _repository.findById(id);
+    switch (result) {
+      case Success(:final value):
+        return Success(value);
       case Failure(:final exception):
         return Failure(ServiceException(message: exception.message));
     }

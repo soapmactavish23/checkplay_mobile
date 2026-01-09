@@ -6,8 +6,9 @@ import 'package:checkplay_mobile/domain/models/entities/category.dart';
 
 abstract interface class CategoryService {
   Future<Either<ServiceException, List<Category>>> findAll();
-  Future<Either<ServiceException, Nil>> update(Category request);
-  Future<Either<ServiceException, Nil>> create(Category request);
+  Future<Either<ServiceException, Category>> update(Category request);
+  Future<Either<ServiceException, Category>> create(Category request);
   Future<Either<ServiceException, Nil>> remove(String id);
   Future<Either<ServiceException, Nil>> uploadImage(UploadDto dto);
+  Future<Either<ServiceException, Category>> findById(String id);
 }

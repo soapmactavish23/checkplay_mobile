@@ -11,10 +11,10 @@ import 'package:dio/dio.dart';
 
 class CategoryRepositoryImpl extends RestClient with CategoryRepository {
   @override
-  Future<Either<RepositoryException, Nil>> create(Category request) async {
+  Future<Either<RepositoryException, Category>> create(Category request) async {
     try {
-      await auth.post('/categorias', data: request.toMap());
-      return Success(nil);
+      final result = await auth.post('/categorias', data: request.toMap());
+      return Success(Category.fromMap(result.data));
     } on Exception catch (e, s) {
       const msg = "Erro ao criar categoria";
       log(msg, error: e, stackTrace: s);
@@ -36,10 +36,10 @@ class CategoryRepositoryImpl extends RestClient with CategoryRepository {
   }
 
   @override
-  Future<Either<RepositoryException, Nil>> update(Category request) async {
+  Future<Either<RepositoryException, Category>> update(Category request) async {
     try {
-      await auth.put('/categorias', data: request.toMap());
-      return Success(nil);
+      final result = await auth.put('/categorias', data: request.toMap());
+      return Success(Category.fromMap(result.data));
     } on Exception catch (e, s) {
       const msg = "Erro ao atualizar categoria";
       log(msg, error: e, stackTrace: s);
@@ -76,6 +76,18 @@ class CategoryRepositoryImpl extends RestClient with CategoryRepository {
       return Success(nil);
     } catch (e, s) {
       String msg = 'Erro ao enviar imagem da categoria';
+      log(msg, error: e, stackTrace: s);
+      return Failure(RepositoryException(message: msg));
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, Category>> findById(String id) async {
+    try {
+      final result = await auth.get('/categorias/$id');
+      return Success(Category.fromMap(result.data));
+    } on Exception catch (e, s) {
+      String msg = 'Erro ao pesquisar a categoria';
       log(msg, error: e, stackTrace: s);
       return Failure(RepositoryException(message: msg));
     }

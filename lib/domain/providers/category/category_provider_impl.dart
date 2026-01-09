@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:checkplay_mobile/core/auth/models/user.dart';
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
-import 'package:checkplay_mobile/core/fp/nil.dart';
 import 'package:checkplay_mobile/domain/models/dto/upload_dto.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/providers/category/category_provider.dart';
@@ -64,7 +63,7 @@ class CategoryProviderImpl extends ChangeNotifier implements CategoryProvider {
   @override
   Future<void> save() async {
     loading = true;
-    Either<ServiceException, Nil> result;
+    Either<ServiceException, Category> result;
     if (obj.id == null) {
       result = await _service.create(obj);
     } else {
@@ -72,7 +71,9 @@ class CategoryProviderImpl extends ChangeNotifier implements CategoryProvider {
     }
 
     switch (result) {
-      case Success():
+      case Success(:final value):
+        obj = value;
+        await findById();
         await findAll();
       case Failure(:final exception):
         return Future.error(exception.message);
@@ -101,5 +102,20 @@ class CategoryProviderImpl extends ChangeNotifier implements CategoryProvider {
         .where((e) => e.name.toLowerCase().contains(value.toLowerCase()))
         .toList();
     loading = false;
+  }
+
+  @override
+  Future<void> findById() async {
+    loading = true;
+    final result = await _service.findById(obj.id!);
+    loading = false;
+    switch (result) {
+      case Success(:final value):
+        obj = value;
+        loading = false;
+        return Future.value();
+      case Failure(:final exception):
+        return Future.error(exception.message);
+    }
   }
 }

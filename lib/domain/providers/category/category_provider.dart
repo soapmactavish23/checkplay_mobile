@@ -6,4 +6,5 @@ abstract interface class CategoryProvider {
   Future<void> remove(String id);
   Future<void> uploadImage(File file);
   void search(String value);
+  Future<void> findById();
 }
