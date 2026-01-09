@@ -72,4 +72,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 	<img src="./prints/img09.png" width="200">
 	<img src="./prints/img10.png" width="200">
 	<img src="./prints/img11.png" width="200">
+	<img src="./prints/img12.png" width="200">
+	<img src="./prints/img13.png" width="200">
+	<img src="./prints/img14.png" width="200">
+	<img src="./prints/img15.png" width="200">
+	<img src="./prints/img16.png" width="200">
 </p>
