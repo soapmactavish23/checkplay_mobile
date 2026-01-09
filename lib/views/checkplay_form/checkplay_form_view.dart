@@ -2,17 +2,16 @@
 import 'dart:io';
 
 import 'package:checkplay_mobile/core/components/forms/buttom_custom.dart';
-import 'package:checkplay_mobile/core/components/forms/dropdown_search.dart';
 import 'package:checkplay_mobile/core/components/forms/input_custom.dart';
 import 'package:checkplay_mobile/core/components/forms/outlined_custom_button.dart';
 import 'package:checkplay_mobile/core/components/images/image_container.dart';
+import 'package:checkplay_mobile/core/components/search/dropdown_search_custom.dart';
 import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
 import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/models/entities/checkplay.dart';
 import 'package:checkplay_mobile/domain/providers/category/category_provider_impl.dart';
 import 'package:checkplay_mobile/domain/providers/checkplay/checkplay_provider_impl.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -160,7 +159,7 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
                     Consumer<CategoryProviderImpl>(
                       builder: (_, provider, __) {
                         final list = provider.list;
-                        return DropdownSearch(
+                        return DropdownSearchCustom(
                           validator: (value) {
                             if (value == null || value.id == null) {
                               return 'Categoria é obrigatória';
@@ -178,10 +177,8 @@ class _CheckplayFormViewState extends State<CheckplayFormView> {
                           onSaved: (value) {
                             obj.category = value!;
                           },
-                          dropdownDecoratorProps: getStyle(
-                            label: 'Categoria',
-                            hintText: 'Selecione a categoria',
-                          ),
+                          label: 'Categoria',
+                          hintText: 'Selecione a categoria',
                         );
                       },
                     ),
