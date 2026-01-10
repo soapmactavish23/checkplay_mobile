@@ -11,13 +11,6 @@ workflows:
       - name: Precache iOS
         script: flutter precache --ios
 
-      - name: Install CocoaPods (iOS)
-        script: |
-          cd ios
-          pod repo update
-          pod install
-          cd ..
-
       - name: Build iOS simulator
         script: flutter build ios --simulator --debug
 
