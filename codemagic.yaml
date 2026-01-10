@@ -1,0 +1,11 @@
+workflows:
+  default-workflow:
+    name: Checkplay iOS Build
+    environment:
+      flutter: 3.24.5
+    instance_type: mac_mini_m2
+    scripts:
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Build iOS
+        script: flutter build ios --release
