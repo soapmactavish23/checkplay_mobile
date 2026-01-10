@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBGmIxC9SOzgTYHedsUSVNJs1Pv1uHCn8k',
-    appId: '1:145030948040:web:b2e2ef0d3741ea307f31fd',
-    messagingSenderId: '145030948040',
-    projectId: 'checkplay-5afca',
-    authDomain: 'checkplay-5afca.firebaseapp.com',
-    storageBucket: 'checkplay-5afca.firebasestorage.app',
-    measurementId: 'G-D2CLM225EH',
+    apiKey: 'AIzaSyC7X_piWkweDRqT83Bx8uiAgSh-TVZS1cs',
+    appId: '1:985002247624:web:1ef85d3a530da4db6decfd',
+    messagingSenderId: '985002247624',
+    projectId: 'checkplay-5e169',
+    authDomain: 'checkplay-5e169.firebaseapp.com',
+    storageBucket: 'checkplay-5e169.firebasestorage.app',
+    measurementId: 'G-3NV03D148V',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCaT58GL4NAkW89CHd7upAe6G8lAaEzAOk',
-    appId: '1:145030948040:android:513e87873aa9436b7f31fd',
-    messagingSenderId: '145030948040',
-    projectId: 'checkplay-5afca',
-    storageBucket: 'checkplay-5afca.firebasestorage.app',
+    apiKey: 'AIzaSyAyB20ZQe_7ULy5ms_pV6Yk0VMtNxDJYGA',
+    appId: '1:985002247624:android:2730789d620bf8dd6decfd',
+    messagingSenderId: '985002247624',
+    projectId: 'checkplay-5e169',
+    storageBucket: 'checkplay-5e169.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAL8aI4xsZeMXtMHpbHF3lPTzjYRip96Pw',
-    appId: '1:145030948040:ios:154f4518ceff674e7f31fd',
-    messagingSenderId: '145030948040',
-    projectId: 'checkplay-5afca',
-    storageBucket: 'checkplay-5afca.firebasestorage.app',
-    iosBundleId: 'com.example.checkplayMobile',
+    apiKey: 'AIzaSyC4rx_HEAT_ZxK8TEfKcnAXyW55EWPT79s',
+    appId: '1:985002247624:ios:bfe20a74a9f826cb6decfd',
+    messagingSenderId: '985002247624',
+    projectId: 'checkplay-5e169',
+    storageBucket: 'checkplay-5e169.firebasestorage.app',
+    iosBundleId: 'br.com.hksntech.checkplay',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAL8aI4xsZeMXtMHpbHF3lPTzjYRip96Pw',
-    appId: '1:145030948040:ios:154f4518ceff674e7f31fd',
-    messagingSenderId: '145030948040',
-    projectId: 'checkplay-5afca',
-    storageBucket: 'checkplay-5afca.firebasestorage.app',
+    apiKey: 'AIzaSyC4rx_HEAT_ZxK8TEfKcnAXyW55EWPT79s',
+    appId: '1:985002247624:ios:10548874033ac3116decfd',
+    messagingSenderId: '985002247624',
+    projectId: 'checkplay-5e169',
+    storageBucket: 'checkplay-5e169.firebasestorage.app',
     iosBundleId: 'com.example.checkplayMobile',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBGmIxC9SOzgTYHedsUSVNJs1Pv1uHCn8k',
-    appId: '1:145030948040:web:f555de9ce81dd4567f31fd',
-    messagingSenderId: '145030948040',
-    projectId: 'checkplay-5afca',
-    authDomain: 'checkplay-5afca.firebaseapp.com',
-    storageBucket: 'checkplay-5afca.firebasestorage.app',
-    measurementId: 'G-08KLB0Z0P6',
+    apiKey: 'AIzaSyC7X_piWkweDRqT83Bx8uiAgSh-TVZS1cs',
+    appId: '1:985002247624:web:2d9eb17556b072226decfd',
+    messagingSenderId: '985002247624',
+    projectId: 'checkplay-5e169',
+    authDomain: 'checkplay-5e169.firebaseapp.com',
+    storageBucket: 'checkplay-5e169.firebasestorage.app',
+    measurementId: 'G-LY1WQP5M5Q',
   );
+
 }

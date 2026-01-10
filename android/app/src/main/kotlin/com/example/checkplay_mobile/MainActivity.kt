@@ -1,4 +1,4 @@
-package com.example.checkplay_mobile
+package br.com.hksntech.checkplay
 
 import io.flutter.embedding.android.FlutterActivity
 
