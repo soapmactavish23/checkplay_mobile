@@ -7,5 +7,5 @@ workflows:
     scripts:
       - name: Get Flutter packages
         script: flutter pub get
-      - name: Build iOS
-        script: flutter build ios --release
+      - name: Build iOS simulator
+        script: flutter build ios --simulator --debug
