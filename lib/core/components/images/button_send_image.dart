@@ -69,13 +69,13 @@ class _ButtonSendImageState extends State<ButtonSendImage> {
                         leading: const Icon(Icons.camera_alt),
                         title: const Text('Câmera'),
                         onTap: () async {
+                          Navigator.pop(context);
                           final XFile? selectedImage = await _picker.pickImage(
                             source: ImageSource.camera,
                           );
                           if (selectedImage != null) {
                             await cropImage(selectedImage);
                           }
-                          Navigator.pop(context);
                         },
                       ),
                       const Divider(
@@ -85,13 +85,13 @@ class _ButtonSendImageState extends State<ButtonSendImage> {
                         leading: const Icon(Icons.photo_library),
                         title: const Text('Galeria'),
                         onTap: () async {
+                          Navigator.pop(context);
                           final XFile? selectedImage = await _picker.pickImage(
                             source: ImageSource.gallery,
                           );
                           if (selectedImage != null) {
                             await cropImage(selectedImage);
                           }
-                          Navigator.pop(context);
                         },
                       ),
                       const Divider(
