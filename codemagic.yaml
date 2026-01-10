@@ -5,7 +5,15 @@ workflows:
       flutter: 3.24.5
     instance_type: mac_mini_m2
     scripts:
-      - name: Get Flutter packages
+      - name: Flutter pub get
         script: flutter pub get
+
+      - name: Generate iOS config files
+        script: flutter precache --ios && flutter build ios --config-only
+
       - name: Build iOS simulator
         script: flutter build ios --simulator --debug
+
+    artifacts:
+      - build/ios/iphonesimulator/*.app
+      - build/ios/iphonesimulator/*.dSYM
