@@ -30,7 +30,12 @@ class _CategoryComponentState extends State<CategoryComponent> {
         Consumer<CategoryProviderImpl>(
           builder: (_, provider, __) {
             List<Category> categories = [
-              Category(id: '', name: 'Todos', image: 'images/logo.png'),
+              Category(
+                id: '',
+                name: 'Todos',
+                image: 'images/logo.png',
+                value: 0.0,
+              ),
               ...provider.list
             ];
 

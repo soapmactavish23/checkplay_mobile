@@ -5,20 +5,23 @@ class Category {
   String? id;
   String name;
   dynamic image;
+  double value;
   Category({
     this.id,
     required this.name,
     required this.image,
+    required this.value
   });
 
   factory Category.empty() {
-    return Category(name: '', image: null);
+    return Category(name: '', image: null, value: 0.0);
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'name': name,
+      'value': value
     };
   }
 
@@ -27,6 +30,7 @@ class Category {
       id: map['id'] != null ? map['id'] as String : null,
       name: map['name'] != null ? map['name'] as String : '',
       image: map['image'] as dynamic,
+      value: map['value'] as double
     );
   }
 

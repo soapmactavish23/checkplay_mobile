@@ -73,6 +73,7 @@ class _CategoryViewState extends State<CategoryView> {
                 return CardCustomImage(
                   image: obj.image,
                   title: obj.name,
+                  subtitle: Text('R\$ ${obj.value.toStringAsFixed(2)}'),
                   onTap: () {
                     provider.obj = obj;
                     Navigator.pushNamed(context, RouterName.categoryForm);

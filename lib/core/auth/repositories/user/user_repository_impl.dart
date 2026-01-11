@@ -9,6 +9,7 @@ import 'package:checkplay_mobile/core/auth/repositories/user/user_repository.dar
 import 'package:checkplay_mobile/core/auth/models/token.dart';
 import 'package:checkplay_mobile/core/rest_client/rest_client.dart';
 import 'package:checkplay_mobile/core/auth/models/user.dart';
+import 'package:dio/dio.dart';
 
 class UserRepositoryImpl extends RestClient with UserRepository {
   @override
@@ -135,8 +136,11 @@ class UserRepositoryImpl extends RestClient with UserRepository {
         'email': email,
         'password': password,
       });
-
       return Success(Token.fromMap(response.data));
+    } on DioException catch (e, s) {
+      String msg = 'Usuário ou senha incorretos. Acesso negado.';
+      log(msg, error: e.message, stackTrace: s);
+      return Failure(RepositoryException(message: msg));
     } on Exception catch (e, s) {
       String msg = 'Usuário ou senha incorretos. Acesso negado.';
       log(msg, error: e, stackTrace: s);

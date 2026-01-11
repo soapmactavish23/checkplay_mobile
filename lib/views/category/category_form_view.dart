@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:checkplay_mobile/core/components/forms/buttom_custom.dart';
 import 'package:checkplay_mobile/core/components/forms/input_custom.dart';
 import 'package:checkplay_mobile/core/components/images/image_container.dart';
@@ -10,6 +11,7 @@ import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
 import 'package:checkplay_mobile/domain/models/entities/category.dart';
 import 'package:checkplay_mobile/domain/providers/category/category_provider_impl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:validatorless/validatorless.dart';
@@ -25,6 +27,7 @@ class _CategoryFormViewState extends State<CategoryFormView> {
   late String _title;
   dynamic image;
   final nameEC = TextEditingController();
+  final valueEC = TextEditingController();
   final formKey = GlobalKey<FormState>();
   Category obj = Category.empty();
 
@@ -51,6 +54,7 @@ class _CategoryFormViewState extends State<CategoryFormView> {
     setState(() {
       _title = t;
       nameEC.text = obj.name;
+      valueEC.text = '${obj.value}';
       image = obj.image;
     });
   }
@@ -126,6 +130,27 @@ class _CategoryFormViewState extends State<CategoryFormView> {
                           setState(() {
                             _title = value;
                           });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      InputCustom(
+                        controller: valueEC,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          RealInputFormatter(moeda: true)
+                        ],
+                        maxLength: 150,
+                        validator:
+                            Validatorless.required('Valor é obrigatório'),
+                        hintText: 'Digite o valor da categoria',
+                        label: 'Valor',
+                        icon: const Icon(Icons.currency_exchange),
+                        onSaved: (value) {
+                          value = value!.replaceAll('R\$ ', '');
+
+                          obj.value = double.parse(value);
                         },
                       ),
                       const SizedBox(
