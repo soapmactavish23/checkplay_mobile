@@ -137,6 +137,7 @@ class _CategoryFormViewState extends State<CategoryFormView> {
                       ),
                       InputCustom(
                         controller: valueEC,
+                        textInputType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                           RealInputFormatter(moeda: true)
