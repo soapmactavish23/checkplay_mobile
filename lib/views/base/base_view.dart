@@ -1,5 +1,6 @@
 import 'package:checkplay_mobile/domain/providers/core/page_manager.dart';
 import 'package:checkplay_mobile/views/category/category_view.dart';
+import 'package:checkplay_mobile/views/dashboard/dashboard_view.dart';
 import 'package:checkplay_mobile/views/groups/groups_view.dart';
 import 'package:checkplay_mobile/views/home/home_view.dart';
 import 'package:checkplay_mobile/views/profile/profile_view.dart';
@@ -22,6 +23,7 @@ class BaseView extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: const [
               HomeView(),
+              DashboardView(),
               CategoryView(),
               ProfileView(),
               UsersView(),

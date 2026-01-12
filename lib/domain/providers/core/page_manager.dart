@@ -10,10 +10,11 @@ class PageManager {
   int page = 0;
 
   static int homeClient = 0;
-  static int categoryClient = 1;
-  static int profile = 2;
-  static int users = 3;
-  static int groups = 4;
+  static int dashboard = 1;
+  static int categoryClient = 2;
+  static int profile = 3;
+  static int users = 4;
+  static int groups = 5;
   void setPage(int value) {
     try {
       if (value == page) return;

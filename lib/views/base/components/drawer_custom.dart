@@ -34,6 +34,13 @@ class DrawerCustom extends StatelessWidget {
                   },
                 ),
                 ListTile(
+                  leading: const Icon(Icons.dashboard),
+                  title: const Text('Dashboard'),
+                  onTap: () {
+                    context.read<PageManager>().setPage(PageManager.dashboard);
+                  },
+                ),
+                ListTile(
                   leading: const Icon(Icons.category),
                   title: const Text('Categorias'),
                   onTap: () {
