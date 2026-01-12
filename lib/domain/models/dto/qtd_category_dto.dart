@@ -5,10 +5,12 @@ class QtdCategoryDto {
   String name;
   double value;
   int total;
+  dynamic image;
   QtdCategoryDto({
     required this.name,
     required this.value,
     required this.total,
+    required this.image,
   });
 
   Map<String, dynamic> toMap() {
@@ -16,15 +18,16 @@ class QtdCategoryDto {
       'name': name,
       'value': value,
       'total': total,
+      'image': image
     };
   }
 
   factory QtdCategoryDto.fromMap(Map<String, dynamic> map) {
     return QtdCategoryDto(
-      name: map['name'] as String,
-      value: map['value'] as double,
-      total: map['total'] as int,
-    );
+        name: map['name'] as String,
+        value: map['value'] as double,
+        total: map['total'] as int,
+        image: map['image']);
   }
 
   String toJson() => json.encode(toMap());

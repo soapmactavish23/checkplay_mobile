@@ -22,7 +22,7 @@ class QtdDto {
 
   factory QtdDto.fromMap(Map<String, dynamic> map) {
     return QtdDto(
-      value: map['value'] as double,
+      value: map['value'] ?? 0.0,
       total: map['total'] as int,
     );
   }

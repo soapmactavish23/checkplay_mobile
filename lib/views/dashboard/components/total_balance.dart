@@ -26,7 +26,7 @@ class TotalBalance extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      UtilBrasilFields.obterReal(1500.50),
+                      UtilBrasilFields.obterReal(provider.qtdDto.value),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 40,

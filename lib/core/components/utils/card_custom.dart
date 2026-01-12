@@ -8,15 +8,17 @@ class CardCustom extends StatelessWidget {
   Function()? onTap;
   Function()? onLongPress;
   Color? colorTitle;
+  Widget? trailing;
 
   CardCustom({
-    Key? key,
+    super.key,
     required this.title,
     this.subtitle,
     this.onTap,
     this.onLongPress,
     this.colorTitle,
-  }) : super(key: key);
+    this.trailing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class CardCustom extends StatelessWidget {
           subtitle: subtitle,
           onTap: onTap,
           onLongPress: onLongPress,
+          trailing: trailing,
         ),
       ),
     );

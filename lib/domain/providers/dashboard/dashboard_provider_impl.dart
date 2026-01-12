@@ -71,4 +71,12 @@ class DashboardProviderImpl extends ChangeNotifier with DashboardProvider {
         return Future.error(exception.message);
     }
   }
+
+  @override
+  Future<void> changeRequest(DashboardRequest req) async {
+    request = req;
+    await loadCategoryByMonthAndYear();
+    await loadChecksByMonthAndYear();
+    await loadQtdByMonthAndYear();
+  }
 }
