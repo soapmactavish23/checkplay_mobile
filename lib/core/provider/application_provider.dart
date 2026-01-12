@@ -42,9 +42,13 @@ class ApplicationProvider extends StatelessWidget {
               objDad.userLogged,
             ),
         ),
-        ChangeNotifierProvider<DashboardProviderImpl>(
+        ChangeNotifierProxyProvider<UserProviderImpl, DashboardProviderImpl>(
           create: (_) => DashboardProviderImpl(),
-          lazy: true,
+          lazy: false,
+          update: (_, objDad, objChild) => objChild!
+            ..updateUser(
+              objDad.userLogged,
+            ),
         ),
       ],
       child: materialApp,

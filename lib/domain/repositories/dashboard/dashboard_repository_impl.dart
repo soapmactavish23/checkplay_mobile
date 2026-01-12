@@ -14,8 +14,8 @@ class DashboardRepositoryImpl extends RestClient with DashboardRepository {
   Future<Either<RepositoryException, List<QtdCategoryDto>>>
       loadCategoryByMonthAndYear(DashboardRequest request) async {
     try {
-      final result =
-          await auth.get('/dashboard/categories', data: request.toMap());
+      final result = await auth.get('/dashboard/categories',
+          queryParameters: request.toMap());
       final list = List<Map<String, dynamic>>.from(result.data).toList();
       return Success(
           list.map<QtdCategoryDto>((e) => QtdCategoryDto.fromMap(e)).toList());
@@ -30,7 +30,8 @@ class DashboardRepositoryImpl extends RestClient with DashboardRepository {
   Future<Either<RepositoryException, List<CheckQtdDto>>>
       loadChecksByMonthAndYear(DashboardRequest request) async {
     try {
-      final result = await auth.get('/dashboard/checks', data: request.toMap());
+      final result =
+          await auth.get('/dashboard/checks', queryParameters: request.toMap());
       final list = List<Map<String, dynamic>>.from(result.data).toList();
       return Success(
           list.map<CheckQtdDto>((e) => CheckQtdDto.fromMap(e)).toList());
@@ -45,7 +46,8 @@ class DashboardRepositoryImpl extends RestClient with DashboardRepository {
   Future<Either<RepositoryException, QtdDto>> loadQtdByMonthAndYear(
       DashboardRequest request) async {
     try {
-      final result = await auth.get('/dashboard', data: request.toMap());
+      final result =
+          await auth.get('/dashboard', queryParameters: request.toMap());
       return Success(QtdDto.fromMap(result.data));
     } on Exception catch (e, s) {
       const msg = "Erro ao listar valores por mês e ano.";

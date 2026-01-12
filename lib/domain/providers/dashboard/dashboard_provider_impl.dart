@@ -1,3 +1,4 @@
+import 'package:checkplay_mobile/core/auth/models/user.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/domain/models/dto/check_qtd_dto.dart';
 import 'package:checkplay_mobile/domain/models/dto/dashboard_request.dart';
@@ -21,6 +22,12 @@ class DashboardProviderImpl extends ChangeNotifier with DashboardProvider {
   set loading(bool value) {
     _loading = value;
     notifyListeners();
+  }
+
+  void updateUser(User? user) {
+    loadCategoryByMonthAndYear();
+    loadChecksByMonthAndYear();
+    loadQtdByMonthAndYear();
   }
 
   @override

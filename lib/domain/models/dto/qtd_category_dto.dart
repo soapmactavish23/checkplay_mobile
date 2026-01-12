@@ -3,7 +3,7 @@ import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class QtdCategoryDto {
   String name;
-  String value;
+  double value;
   int total;
   QtdCategoryDto({
     required this.name,
@@ -22,7 +22,7 @@ class QtdCategoryDto {
   factory QtdCategoryDto.fromMap(Map<String, dynamic> map) {
     return QtdCategoryDto(
       name: map['name'] as String,
-      value: map['value'] as String,
+      value: map['value'] as double,
       total: map['total'] as int,
     );
   }

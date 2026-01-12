@@ -1,14 +1,14 @@
 import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
-import 'package:checkplay_mobile/core/rest_client/rest_client.dart';
 import 'package:checkplay_mobile/domain/models/dto/check_qtd_dto.dart';
 import 'package:checkplay_mobile/domain/models/dto/dashboard_request.dart';
 import 'package:checkplay_mobile/domain/models/dto/qtd_category_dto.dart';
 import 'package:checkplay_mobile/domain/models/dto/qtd_dto.dart';
+import 'package:checkplay_mobile/domain/repositories/dashboard/dashboard_repository_impl.dart';
 import 'package:checkplay_mobile/domain/services/dashboard/dashboard_service.dart';
 
-class DashboardServiceImpl extends RestClient with DashboardService {
-  final _repository = DashboardServiceImpl();
+class DashboardServiceImpl implements DashboardService {
+  final _repository = DashboardRepositoryImpl();
 
   @override
   Future<Either<ServiceException, List<QtdCategoryDto>>>
