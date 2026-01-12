@@ -9,6 +9,13 @@ class DashboardRequest {
     required this.year,
   });
 
+  factory DashboardRequest.empty() {
+    return DashboardRequest(
+      month: DateTime.now().month,
+      year: DateTime.now().year,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'month': month,

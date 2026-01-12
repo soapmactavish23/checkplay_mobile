@@ -9,6 +9,10 @@ class QtdDto {
     required this.total,
   });
 
+  factory QtdDto.empty() {
+    return QtdDto(value: 0, total: 0);
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'value': value,
