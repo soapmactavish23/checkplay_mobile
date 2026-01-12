@@ -10,15 +10,18 @@ class CardCustomImage extends StatelessWidget {
   Widget? subtitle;
   Function()? onTap;
   Function()? onLongPress;
+  bool isCover = false;
+  Widget? trailing;
 
-  CardCustomImage({
-    super.key,
-    required this.title,
-    required this.image,
-    this.subtitle,
-    this.onTap,
-    this.onLongPress,
-  });
+  CardCustomImage(
+      {super.key,
+      required this.title,
+      required this.image,
+      this.subtitle,
+      this.onTap,
+      this.onLongPress,
+      this.isCover = false,
+      this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +32,16 @@ class CardCustomImage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(4),
         child: ListTile(
-          leading: FadeInImage(
-            placeholder: const AssetImage(ImageConstants.loading),
-            width: 80,
-            image: ImageCustom.getImageProvider(image),
-            fadeInDuration: const Duration(milliseconds: 200),
-            fadeInCurve: Curves.easeIn,
-          ),
+          leading: isCover
+              ? ImageCustom.cover(image,
+                  width: 80, padding: const EdgeInsets.all(5))
+              : FadeInImage(
+                  placeholder: const AssetImage(ImageConstants.loading),
+                  width: 80,
+                  image: ImageCustom.getImageProvider(image),
+                  fadeInDuration: const Duration(milliseconds: 200),
+                  fadeInCurve: Curves.easeIn,
+                ),
           title: Text(
             title,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
@@ -43,6 +49,7 @@ class CardCustomImage extends StatelessWidget {
           subtitle: subtitle,
           onTap: onTap,
           onLongPress: onLongPress,
+          trailing: trailing,
         ),
       ),
     );

@@ -30,6 +30,7 @@ abstract class ImageCustom {
     double height = 180,
     double radius = 20,
     bool showGallery = true,
+    EdgeInsetsGeometry padding = const EdgeInsets.all(16),
   }) {
     final provider = getImageProvider(file);
 
@@ -63,7 +64,7 @@ abstract class ImageCustom {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: padding,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(14),
                 child: showGallery

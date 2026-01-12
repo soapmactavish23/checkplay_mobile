@@ -1,5 +1,6 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:checkplay_mobile/core/components/utils/card_custom_image.dart';
+import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:checkplay_mobile/domain/models/dto/check_qtd_dto.dart';
 import 'package:checkplay_mobile/views/base/components/drawer_custom.dart';
 import 'package:checkplay_mobile/views/dashboard/components/month_year_picker.dart';
@@ -84,11 +85,20 @@ class _DashboardViewState extends State<DashboardView> {
               itemBuilder: (_, index) {
                 CheckQtdDto dto = list[index];
                 return CardCustomImage(
+                  isCover: true,
                   title: dto.name,
                   subtitle: Text(
-                    UtilBrasilFields.obterReal(dto.value),
+                    dto.categoryName,
                   ),
                   image: dto.image,
+                  trailing: Text(
+                    UtilBrasilFields.obterReal(dto.value),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: ColorsConstants.success,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 );
               },
             ),
