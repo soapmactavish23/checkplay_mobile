@@ -3,7 +3,7 @@ import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 class CheckQtdDto {
-  int id;
+  String id;
   String name;
   double value;
   String? image;
@@ -31,7 +31,7 @@ class CheckQtdDto {
 
   factory CheckQtdDto.fromMap(Map<String, dynamic> map) {
     return CheckQtdDto(
-      id: map['id'] as int,
+      id: map['id'] as String,
       name: map['name'] as String,
       value: map['value'] as double,
       image: map['image'] != null ? map['image'] as String : null,
