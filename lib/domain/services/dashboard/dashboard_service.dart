@@ -1,15 +1,15 @@
-import 'package:checkplay_mobile/core/exception/repository_exception.dart';
+import 'package:checkplay_mobile/core/exception/service_exception.dart';
 import 'package:checkplay_mobile/core/fp/either.dart';
 import 'package:checkplay_mobile/domain/models/dto/check_qtd_dto.dart';
 import 'package:checkplay_mobile/domain/models/dto/dashboard_request.dart';
 import 'package:checkplay_mobile/domain/models/dto/qtd_category_dto.dart';
 import 'package:checkplay_mobile/domain/models/dto/qtd_dto.dart';
 
-mixin DashboardRepository {
-  Future<Either<RepositoryException, List<QtdCategoryDto>>>
+mixin DashboardService {
+  Future<Either<ServiceException, List<QtdCategoryDto>>>
       loadCategoryByMonthAndYear(DashboardRequest request);
-  Future<Either<RepositoryException, List<CheckQtdDto>>>
-      loadChecksByMonthAndYear(DashboardRequest request);
-  Future<Either<RepositoryException, QtdDto>> loadQtdByMonthAndYear(
+  Future<Either<ServiceException, List<CheckQtdDto>>> loadChecksByMonthAndYear(
+      DashboardRequest request);
+  Future<Either<ServiceException, QtdDto>> loadQtdByMonthAndYear(
       DashboardRequest request);
 }
