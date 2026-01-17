@@ -41,7 +41,17 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
 
       if (token != null) {
         bool isExpired = JwtDecoder.isExpired(token);
-        if (!isExpired) {
+
+        if (isExpired) {
+          String? refresh = prefs.getString(LocalStorageKey.refreshToken);
+          if (refresh != null) {
+            bool refreshTokenIsExpired = JwtDecoder.isExpired(refresh);
+            if (!refreshTokenIsExpired) {
+              final code = JwtDecoder.decode(token)['sub'];
+              await findByCode(code);
+            }
+          }
+        } else {
           final code = JwtDecoder.decode(token)['sub'];
           await findByCode(code);
         }
@@ -86,6 +96,7 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
       case Success(value: final Token token):
         final prefs = await SharedPreferences.getInstance();
         prefs.setString(LocalStorageKey.accessToken, token.accessToken);
+        prefs.setString(LocalStorageKey.refreshToken, token.refreshToken);
         await loadCurrentUser();
         return Future.value();
       case Failure(:final exception):
