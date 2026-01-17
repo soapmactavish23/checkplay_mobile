@@ -176,4 +176,18 @@ class UserRepositoryImpl extends RestClient with UserRepository {
       return Failure(RepositoryException(message: msg));
     }
   }
+
+  @override
+  Future<Either<RepositoryException, Token>> refreshToken(
+      String refreshToken) async {
+    try {
+      final response = await unAuth
+          .post('/usuarios/refresh', data: {'refreshToken': refreshToken});
+      return Success(Token.fromMap(response.data));
+    } on Exception catch (e, s) {
+      String msg = 'Usuário ou senha incorretos. Acesso negado.';
+      log(msg, error: e, stackTrace: s);
+      return Failure(RepositoryException(message: msg));
+    }
+  }
 }

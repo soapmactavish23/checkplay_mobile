@@ -47,8 +47,7 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
           if (refresh != null) {
             bool refreshTokenIsExpired = JwtDecoder.isExpired(refresh);
             if (!refreshTokenIsExpired) {
-              final code = JwtDecoder.decode(token)['sub'];
-              await findByCode(code);
+              refreshToken(refresh);
             }
           }
         } else {
@@ -236,6 +235,23 @@ class UserProviderImpl extends ChangeNotifier implements UserProvider {
         return Future.value();
       case Failure(:final exception):
         return Future.error(exception.message);
+    }
+  }
+
+  @override
+  Future<void> refreshToken(String refresh) async {
+    loading = true;
+    final result = service.refreshToken(refresh);
+    loading = false;
+    switch (result) {
+      case Success(value: final Token token):
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString(LocalStorageKey.accessToken, token.accessToken);
+        prefs.setString(LocalStorageKey.refreshToken, token.refreshToken);
+        await loadCurrentUser();
+        return Future.value();
+      case Failure(:final exception):
+        return Future.error(exception);
     }
   }
 }

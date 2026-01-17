@@ -9,4 +9,5 @@ mixin UserProvider {
   Future<void> search();
   Future<void> changeStatus();
   Future<void> resetPassword();
+  Future<void> refreshToken(String refresh);
 }

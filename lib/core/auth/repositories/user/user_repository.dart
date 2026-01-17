@@ -21,4 +21,5 @@ mixin UserRepository {
   Future<Either<RepositoryException, Token>> signIn(
       String email, String password);
   Future<Either<RepositoryException, Nil>> register(User obj);
+  Future<Either<RepositoryException, Token>> refreshToken(String refreshToken);
 }

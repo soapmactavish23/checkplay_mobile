@@ -135,4 +135,16 @@ class UserServiceImpl implements UserService {
         return Failure(ServiceException(message: exception.message));
     }
   }
+
+  @override
+  Future<Either<ServiceException, Token>> refreshToken(
+      String refreshToken) async {
+    final result = await _repository.refreshToken(refreshToken);
+    switch (result) {
+      case Success(:final value):
+        return Success(value);
+      case Failure(:final exception):
+        return Failure(ServiceException(message: exception.message));
+    }
+  }
 }

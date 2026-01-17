@@ -19,4 +19,5 @@ mixin UserService {
   Future<Either<ServiceException, Token>> signIn(String email, String password);
   Future<Either<ServiceException, Nil>> register(User obj);
   Future<Either<ServiceException, Nil>> changeStatus(String id);
+  Future<Either<ServiceException, Token>> refreshToken(String refreshToken);
 }
