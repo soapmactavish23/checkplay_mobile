@@ -143,6 +143,11 @@ abstract class DialogCustom {
             titulo,
             style: TextStyle(color: Theme.of(context).primaryColor),
           ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          clipBehavior: Clip.antiAlias,
+          insetPadding: const EdgeInsets.all(16),
           content: Text(msg),
           actions: [
             TextButton(
