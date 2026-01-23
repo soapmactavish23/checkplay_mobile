@@ -2,6 +2,7 @@
 import 'package:checkplay_mobile/core/components/lists/not_found.dart';
 import 'package:checkplay_mobile/core/components/search/icon_search.dart';
 import 'package:checkplay_mobile/core/components/utils/dialog_custom.dart';
+import 'package:checkplay_mobile/core/constants/constants.dart';
 import 'package:checkplay_mobile/core/provider/user/user_provider_impl.dart';
 import 'package:checkplay_mobile/core/routes/router_name.dart';
 import 'package:checkplay_mobile/core/utils/msgs_custom.dart';
@@ -118,6 +119,17 @@ class _HomeViewState extends State<HomeView> {
                         categoryImage: obj.category.image,
                         colorStatus: CheckplayStatus.getColorByStatus(
                           obj.status,
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            'R\$ ${obj.category.value.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: ColorsConstants.success,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
                         onTap: () {
                           provider.obj = obj;

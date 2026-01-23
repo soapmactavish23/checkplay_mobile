@@ -9,6 +9,7 @@ class CardMain extends StatelessWidget {
   final String? image;
   final Color colorStatus;
   final String? categoryImage;
+  final Widget? subtitle;
   const CardMain({
     super.key,
     this.onTap,
@@ -16,6 +17,7 @@ class CardMain extends StatelessWidget {
     required this.onLongPress,
     this.image,
     required this.colorStatus,
+    this.subtitle,
     this.categoryImage = ImageConstants.logo,
   });
 
@@ -45,11 +47,11 @@ class CardMain extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
                   child: Text(
                     title,
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 16,
                       height: 1.25,
                       fontWeight: FontWeight.w800,
                       letterSpacing: 0.2,
@@ -57,6 +59,7 @@ class CardMain extends StatelessWidget {
                     ),
                   ),
                 ),
+                subtitle ?? Container(),
               ],
             ),
             Positioned(
